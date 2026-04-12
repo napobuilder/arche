@@ -203,6 +203,7 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
             </figure>
             <h3>Relación Práctica entre el Gato y el Mago Iniciático</h3>
             <p>Una vez desglosados los fundamentos científicos, es imperativo analizar la dinámica operativa. En las sendas iniciáticas contemporáneas, la relación no se basa en el vasallaje, sino en una simbiosis voluntaria transdimensional.</p>
+          </div>
           
           <h4>El Guardián del Umbral y el Ancla del Viaje Astral</h4>
           <p>El currículo del mago iniciático implica la inducción de estados de trance profundo. Durante estos procesos de desplazamiento extracorpóreo, el vehículo físico queda inerte. La función del gato es la de un centinela electromagnético. Debido a su visión UV y radar geomagnético, detecta intrusiones sutiles en la habitación. En momentos de peligro metafísico, el gato actuará para interrumpir súbitamente el trance del mago, sirviendo de ancla de emergencia hacia la vigilia física.</p>
