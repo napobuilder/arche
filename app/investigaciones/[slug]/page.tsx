@@ -158,17 +158,113 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
         />
       ) : (
         <>
-          <h3 className="mt-16 text-purple-400">✅ Archivo Premium Desbloqueado</h3>
-          
-          <h4>2. Magnetorrecepción y Visión Ultravioleta</h4>
-          <p>Un lector verificado ahora puede ver todo este contenido. Investigaciones recientes han comprobado que la familia <i>Felidae</i> posee una estructura ocular adaptada para percibir espectros de luz ultravioleta que son invisibles e impenetrables para el ojo humano. Esta adaptación biológica podría explicar científicamente su supuesta habilidad para interactuar con apariciones o entidades descritas en la literatura oculta como "luces astrales".</p>
-          
-          <p>Además, sus cuerpos funcionan como antenas geomagnéticas calibradas. Esto los ancla neurológicamente a la Tierra de maneras que apenas comenzamos a entender en laboratorios de sensibilidad cuántica.</p>
-          
-          <div className="my-12 py-8 border-y border-white/10 text-center">
-            <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
-            <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase">HAS LLEGADO AL FINAL DEL MANUSCRITO INICIÁTICO</p>
+          <div className="my-16 py-8 border-y border-purple-500/30 text-center bg-purple-500/5">
+            <h3 className="text-xl md:text-2xl text-purple-400 font-serif mb-2 mt-0">✅ Archivo Premium Desbloqueado</h3>
+            <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase mb-0">El conocimiento oculto ha sido revelado. Gracias por tu apoyo.</p>
           </div>
+          
+          <h4>2. Espectroscopía Ocular: Visión Ultravioleta y Magnetorrecepción</h4>
+          <p>Cuando un gato clava su mirada en un punto aparentemente vacío y eriza su pelaje, el conocimiento popular asume que está viendo a un espíritu. La ciencia ofrece una explicación igualmente fascinante que roza la frontera del misticismo: su aparato ocular detecta segmentos del espectro electromagnético invisibles para la biología humana.</p>
+          <p>Las investigaciones en fotorrecepción mamífera han revolucionado la comprensión de los sentidos animales. Mientras que el cristalino del ojo humano adulto posee pigmentos amarillos que bloquean intencionalmente la luz ultravioleta (UV) para proteger la retina y aumentar la agudeza visual, los estudios de espectrofotometría sobre medios oculares y retinas han demostrado que los felinos poseen un cristalino transparente al espectro de los rayos Ultravioleta A (UVA, 315-400 nm). Los análisis revelaron que el ojo del gato transmite hasta un 59% de la luz ultravioleta a 400 nm hacia la retina, un porcentaje inmensamente superior al de otros mamíferos estudiados.</p>
+          <p>Esto implica que la realidad óptica del felino es radicalmente ajena a la nuestra. El gato percibe la fluorescencia natural de sustancias biológicas, detecta estelas de fluidos químicos y alteraciones lumínicas que el cerebro humano procesa como oscuridad o vacío. Desde la perspectiva alternativa, la manifestación de anomalías termodinámicas o entidades del plano astral que perturban el espectro UV del ambiente son literal e inmediatamente visibles para el gato, fundamentando su reputación como guardián capaz de detectar la presencia de entidades desencarnadas o elementales invasivos.</p>
+          <p>En paralelo a la sensibilidad lumínica, emerge el estudio de la magnetorrecepción. La capacidad de los gatos de retornar a sus hogares recorriendo distancias imposibles se sustenta en su capacidad para percibir el campo geomagnético de la Tierra. La identificación de moléculas de criptocromo en las estructuras oculares de varios mamíferos sugiere que los gatos poseen una brújula biológica integrada. Esta sensibilidad geomagnética los hace extremadamente perceptivos a las variaciones en los campos electromagnéticos locales, fenómenos que a menudo preceden a eventos anómalos o manifestaciones de poltergeist.</p>
+          
+          <h4>3. Teoría de los Campos Mórficos y Telepatía Anticipatoria (Rupert Sheldrake)</h4>
+          <p>Para explicar las asombrosas capacidades intuitivas de los felinos desde un marco no materialista, es imprescindible recurrir a la obra del biólogo de la Universidad de Cambridge, el Dr. Rupert Sheldrake. En su riguroso trabajo, Sheldrake desafía el dogma mecanicista a través de la hipótesis de la Resonancia Mórfica.</p>
+          <p>Sheldrake postula que las mentes de los seres vivos operan como "campos mórficos" que se extienden espacialmente hacia el entorno. Cuando dos seres desarrollan un vínculo emocional y empático profundo, sus campos mórficos se entrelazan, permitiendo la transmisión instantánea de información a distancia. En el contexto del esoterismo, esta validación científica subraya cómo el gato funciona como una extensión perisensorial de la conciencia del mago, capaz de leer y reaccionar a las intenciones ocultas antes de que se materialicen.</p>
+
+          <h4>4. El Biocampo Felino y la Transmutación Electromagnética</h4>
+          <p>La perspectiva de la sanación cuántica propone que los gatos operan con una carga eléctrica natural inversa a la de los agentes estresantes del ambiente humano. Así como las plantas absorben CO2 para transmutarlo en oxígeno, el felino actuaría como un catalizador biológico que absorbe "energía caótica" del ambiente. Mediante el efecto piezoeléctrico combinado con su ronroneo, el gato desintegra acumulaciones de estrés estático, anclando (earthing) la energía errática y restaurando el equilibrio vibracional del espacio.</p>
+
+          <h3>Relación Práctica entre el Gato y el Mago Iniciático</h3>
+          <p>Una vez desglosados los fundamentos científicos, es imperativo analizar la dinámica operativa. En las sendas iniciáticas contemporáneas, la relación no se basa en el vasallaje, sino en una simbiosis voluntaria transdimensional.</p>
+          
+          <h4>El Guardián del Umbral y el Ancla del Viaje Astral</h4>
+          <p>El currículo del mago iniciático implica la inducción de estados de trance profundo. Durante estos procesos de desplazamiento extracorpóreo, el vehículo físico queda inerte. La función del gato es la de un centinela electromagnético. Debido a su visión UV y radar geomagnético, detecta intrusiones sutiles en la habitación. En momentos de peligro metafísico, el gato actuará para interrumpir súbitamente el trance del mago, sirviendo de ancla de emergencia hacia la vigilia física.</p>
+
+          <h4>Diagnóstico Energético, Absorción de Miasma y Purgación</h4>
+          <ul>
+            <li><strong>Identificación de Distorsiones:</strong> Cuando bufa o muestra el pelaje erizado ante la "nada", está notificando la acumulación de energía densa.</li>
+            <li><strong>Cirugía Espiritual:</strong> A través del amasado ("making biscuits") sobre el cuerpo del mago, manipulan nudos energéticos bloqueados, abriendo capas del biocampo para drenar la pesadez de los chakras inferiores.</li>
+            <li><strong>Riesgo de Sobrecarga:</strong> Al fungir como escudos psíquicos, los gatos a menudo absorben golpes astrales. Un letargo repentino en el animal suele indicar una sobrecarga astral crítica.</li>
+          </ul>
+
+          <h3>Prácticas Operativas y Magia Aplicada con Felinos</h3>
+          <p>En los sistemas éticos contemporáneos la mutilación está estrictamente prohibida; el mago debe esperar la recolección natural de los componentes que el animal decida abandonar (muda natural).</p>
+          
+          <h4>1. Magia Simpática con Elementos Corporales</h4>
+          <ul>
+            <li><strong>Vibrisas (Bigotes):</strong> El mago los incorpora en sacos protectores para incrementar su propia sensibilidad psíquica, fomentar la clarividencia y asegurar viajes libres de obstáculos.</li>
+            <li><strong>Garras (Mudadas):</strong> Representan defensa letal. Se entierran en ingredientes para hechizos de defensa agresiva y ataduras.</li>
+            <li><strong>Pelaje:</strong> Se quema para producir negro de humo empleado como tinta ritual poderosa para el trazado de sigilos y talismanes.</li>
+          </ul>
+
+          <h4>2. Correspondencias Esotéricas por Fenotipo y Coloración</h4>
+          <div className="overflow-x-auto my-8">
+            <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
+              <thead className="text-xs text-[#8A8881] uppercase bg-black/50 border-b border-white/10">
+                <tr>
+                  <th className="px-6 py-4 font-mono">Color</th>
+                  <th className="px-6 py-4 font-mono">Atribución</th>
+                  <th className="px-6 py-4 font-mono">Especialización Operativa</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 font-serif">
+                <tr>
+                  <td className="px-6 py-4 font-bold text-[#E8E6E1]">Gatos Negros</td>
+                  <td className="px-6 py-4 italic">Saturno / Plutón</td>
+                  <td className="px-6 py-4">Operan como sumideros absorbiendo toda negatividad. Maestros de la magia profunda, destierros y clarividencia.</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-bold text-[#E8E6E1]">Gatos Blancos</td>
+                  <td className="px-6 py-4 italic">Luna / Isis</td>
+                  <td className="px-6 py-4">Asociados a altas esferas. Sanadores del chakra corazón, atrayentes de pureza emocional.</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-bold text-[#E8E6E1]">Gatos Naranjas</td>
+                  <td className="px-6 py-4 italic">Sol / Sekhmet</td>
+                  <td className="px-6 py-4">Proporcionan intuición agresiva. Ideales para hechizos de abundancia material y coraje.</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 font-bold text-[#E8E6E1]">Gatos Grises</td>
+                  <td className="px-6 py-4 italic">Mercurio</td>
+                  <td className="px-6 py-4">Regentes de la dualidad. Se asocian con la resolución de conflictos interpersonales y sanación.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Conclusiones</h3>
+          <p>La fenomenología del gato exige ser observada desde el cruce multidisciplinario que abarca la arqueología histórica, la filosofía, la parapsicología teórica y la biomedicina. La modernidad científica ha procedido a desempaquetar y validar estos arquetipos mágicos a través del empirismo: la propiedad oscilatoria de los 25 a 150 Hz del ronroneo proporciona una base médica ineludible a las leyendas curativas, y los análisis espectrofotométricos sustentan biológicamente su presunta capacidad clarividente.</p>
+          
+          <p>Para el mago iniciático contemporáneo, el felino es un socio, un centinela transdimensional, un osciloscopio espiritual vivo y un ancla en el mar caótico de la Luz Astral. Mediante la adopción de una verdadera "filosofía felina" de desapego, el practicante perfecciona el uso de la magia simpática y encuentra, en el misterio de los ojos reflectantes del gato, el modelo definitivo del adepto hermético: alerta en el reposo, implacable en la acción, e irremediablemente anclado entre dos mundos.</p>
+          
+          <div className="my-16 py-8 border-y border-white/10 text-center">
+            <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
+            <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase">FIN DEL MANUSCRITO INICIÁTICO</p>
+          </div>
+
+          {/* Fuentes Expandibles */}
+          <details className="mt-8 mb-16 p-6 border border-white/10 bg-[#0a0a0a]/50 rounded-sm cursor-pointer group">
+            <summary className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase list-none flex justify-between items-center group-hover:text-purple-400 transition-colors">
+              <span>Fuentes y Referencias Académicas (Mostrar / Ocultar)</span>
+              <span className="text-lg leading-none">+</span>
+            </summary>
+            <div className="mt-6 text-sm text-[#8A8881] font-mono leading-relaxed space-y-2 h-64 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10">
+              <p>• The Magical Symbolism and Meaning of Cats - Parlour of Wonders</p>
+              <p>• Feline Philosophy: Cats and the Meaning of Life by John Gray</p>
+              <p>• Eliphas Levi and the Influence of the Astral Light on Victorian Occultism - Academia.edu</p>
+              <p>• The felid purr: A healing mechanism? (Journal of the Acoustical Society of America)</p>
+              <p>• The spectral transmission of ocular media suggests ultraviolet sensitivity is widespread among mammals (PMC/IOVS)</p>
+              <p>• Rupert Sheldrake | Animal telepathy and the morphic field</p>
+              <p>• Witches, Familiars, and Human-Animal Interactions in the English Witch Trials - MDPI</p>
+              <p>• Dion Fortune, Psychic Warrior - Gary Lachman</p>
+              <p>• Cats in Islamic Culture - Muslim Heritage</p>
+              <p>• Identifying Cellular and Molecular Mechanisms for Magnetosensation - PMC - NIH</p>
+              <p>• Dogme et Rituel de la Haute Magie - Éliphas Lévi</p>
+              <p>Para la bibliografía completa de más de 120 referencias científicas, veterinarias, parapsicológicas e históricas, contactar al programa académico de la Fundación Arché.</p>
+            </div>
+          </details>
         </>
       )}
     </>
