@@ -5,12 +5,13 @@ import { Lock, Unlock, ArrowLeft, Hexagon } from 'lucide-react'
 import { getInvestigationBySlug, getAllSlugs } from '@/data/investigations'
 
 interface Props {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 // ── SEO DINÁMICO POR ARTÍCULO ──────────────────────────────────────────────
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const paper = getInvestigationBySlug(params.slug)
+  const { slug } = await params
+  const paper = getInvestigationBySlug(slug)
   if (!paper) return { title: 'No encontrado' }
 
   return {
@@ -189,8 +190,9 @@ function ArticuloPublico({ desc }: { desc: string }) {
 }
 
 // ── PÁGINA PRINCIPAL ───────────────────────────────────────────────────────
-export default function InvestigacionPage({ params }: Props) {
-  const paper = getInvestigationBySlug(params.slug)
+export default async function InvestigacionPage({ params }: Props) {
+  const { slug } = await params
+  const paper = getInvestigationBySlug(slug)
   if (!paper) notFound()
 
   return (
