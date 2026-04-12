@@ -304,6 +304,137 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
   )
 }
 
+// ── CONTENIDO DEL ARTÍCULO 04: TDAH ───────────────────────────────────────
+function ArticuloTDAH() {
+  return (
+    <>
+      <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
+        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+          <Hexagon className="w-5 h-5 text-purple-400/50" />
+        </div>
+        <div>
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
+          <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+        </div>
+      </div>
+
+      <p className="mb-12 text-2xl md:text-3xl text-[#E8E6E1] font-light italic border-l-2 border-purple-500/30 pl-8 leading-snug">
+        La investigación de fenómenos que trascienden los límites convencionales de la percepción sensorial ha sido históricamente relegada. No obstante, el TDAH ofrece una ventana científica única profunda.
+      </p>
+
+      <p>El estudio riguroso de la neurodivergencia, específicamente el Trastorno por Déficit de Atención con Hiperactividad (TDAH), ofrece una ventana científica única para comprender cómo el cerebro procesa la información de manera no lineal. El síntoma clínico de &quot;terminar las frases de los demás&quot; no es meramente una manifestación de impulsividad motora, sino un indicador de un motor predictivo hiper-activado que opera bajo principios bayesianos de inferencia.</p>
+
+      <h3>Epistemología de la Parapsicología y el Legado de la Investigación Rigurosa</h3>
+      <p>Para abordar la telepatía con seriedad científica, es imperativo reconocer el trabajo de instituciones que han aplicado métodos cuantitativos a fenómenos anómalos durante casi un siglo. El Centro de Investigación Rhine fue pionero en este campo, estableciendo que la telepatía y la clarividencia son realidades observables en entornos controlados mediante estadística avanzada. Instituciones como el Instituto de Ciencias Noéticas (IONS) continúan esta labor, sugiriendo que la intuición no es un evento místico, sino un proceso biológico que puede estar particularmente acentuado en cerebros con conectividad atípica.</p>
+
+      <div className="overflow-x-auto my-8">
+        <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
+          <thead className="text-xs text-[#8A8881] uppercase bg-black/50 border-b border-white/10">
+            <tr>
+              <th className="px-6 py-4 font-mono">Institución</th>
+              <th className="px-6 py-4 font-mono">Enfoque Principal</th>
+              <th className="px-6 py-4 font-mono">Metodología Clave</th>
+              <th className="px-6 py-4 font-mono">Hallazgos Relevantes</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5 font-serif">
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Centro Rhine</td>
+              <td className="px-6 py-4 italic">Mecanismos de Psi y PK</td>
+              <td className="px-6 py-4">Pruebas de cartas Zener, aleatoriedad</td>
+              <td className="px-6 py-4">Repetibilidad de PES por encima del azar</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">IONS</td>
+              <td className="px-6 py-4 italic">Conciencia No-Local</td>
+              <td className="px-6 py-4">Inventario NSI, neuroimagen EEG 3D</td>
+              <td className="px-6 py-4">Validación de 12 factores de saber directo</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Univ. de Virginia (DOPS)</td>
+              <td className="px-6 py-4 italic">Reencarnación</td>
+              <td className="px-6 py-4">Estudios de casos neuropsiquiátricos</td>
+              <td className="px-6 py-4">Evidencia de telepatía en autismo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>La Fenomenología del TDAH: Del Síntoma a la Capacidad Predictiva</h3>
+      <p>Uno de los indicadores más reveladores en las escalas de diagnóstico para adultos es la tendencia a terminar las oraciones de las personas antes de que estas las completen. Este comportamiento revela una arquitectura cognitiva que procesa los patrones a una velocidad superior a la entrega de datos sensoriales.</p>
+
+      <h4>Codificación Predictiva y el Cerebro Bayesiano</h4>
+      <p>La teoría postula que el cerebro no espera a recibir toda la información sensorial para construir una interpretación; genera modelos internos. En el TDAH, este proceso opera con un sesgo hacia las expectativas internas, permitiendo &quot;leer&quot; la intención del interlocutor. Existe una alteración en la asignación de precisión a los errores de predicción: el cerebro otorga un peso excesivo a sus propias predicciones internas (top-down), resultando en la sensación clarividente de &quot;saber&quot; lo que vendrá.</p>
+
+      <div className="overflow-x-auto my-8">
+        <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
+          <thead className="text-xs text-[#8A8881] uppercase bg-black/50 border-b border-white/10">
+            <tr>
+              <th className="px-6 py-4 font-mono">Proceso Cognitivo</th>
+              <th className="px-6 py-4 font-mono">Modelo Neurotípico</th>
+              <th className="px-6 py-4 font-mono">Modelo TDAH / Intuitivo</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5 font-serif">
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Construcción de Sentencias</td>
+              <td className="px-6 py-4 italic">Pasiva / Secuencial</td>
+              <td className="px-6 py-4">Activa / Estructural anticipatoria</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Manejo del Error</td>
+              <td className="px-6 py-4 italic">Ajuste lento a la evidencia</td>
+              <td className="px-6 py-4">Re-enrutamiento rápido predictivo</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Enfoque de Atención</td>
+              <td className="px-6 py-4 italic">Filtrado de distractores</td>
+              <td className="px-6 py-4">Captura de patrones colaterales holísticos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Arquitectura Neuroanatómica de la Intuición</h3>
+      <h4>La Corteza Prefrontal Ventromedial (vmPFC)</h4>
+      <p>La vmPFC es el centro de funciones ejecutivas &quot;calientes&quot;, integrando señales somáticas o &quot;marcadores intestinales&quot;. En individuos con TDAH hay una reducción en la activación de la vmPFC, por lo que el control fino sobre cuándo aplicar intuiciones se desregula hacia la impulsividad psíquica.</p>
+
+      <h4>La DMN y la Simulación Social</h4>
+      <p>La Red Neuronal por Defecto (DMN) es fundamental para la Teoría de la Mente (modelar lo que otros piensan). En neurotípicos, se apaga durante el trabajo. En el TDAH permanece activa. Este cerebro está constantemente ejecutando simulaciones sociales telepáticas en segundo plano, interpretadas como intuición pura.</p>
+
+      <h3>Capacidades Anómalas: El Caso de la Telepatía y Disociación</h3>
+      <p>Expertos como Diane Hennacy Powell sugieren que la telepatía es una capacidad humana primordial &quot;enterrada&quot; bajo el desarrollo del lenguaje. En autistas no verbales o perfiles fuertemente neurodivergentes, el cerebro compensa manteniendo acceso al campo de conciencia compartido. A su vez, estudios de IONS indican que traumas inducen una &quot;alter-asociación&quot; disociativa (clarividencia post-traumática) como mecanismo hipervigilante hiperadaptativo.</p>
+
+      <h3>Farmacología: El Efecto de la Atomoxetina en la Intuición</h3>
+      <p>La atomoxetina (ISRN) fortalece la anticorrelación entre la DMN y las redes de control cognitivo, normalizando la hiper-simulación. ¿Disminuye esto la intuición?</p>
+      <ul>
+        <li className="mb-2"><strong>Reducción de Intuición Intrusiva:</strong> Disminuye las ráfagas incontrolables (ej. cortar frases ajenas) al silenciar el ruido de la DMN.</li>
+        <li className="mb-2"><strong>Clarificación de la Señal (Psi):</strong> Al tener menos distracción (top-down), las intuiciones genuinas se pueden diferenciar limpiamente de la ansiedad paranoica.</li>
+        <li><strong>En resumen:</strong> No &quot;borra&quot; la clarividencia; le proporciona el andamiaje ejecutivo para gestionarla conscientemente.</li>
+      </ul>
+
+      <div className="my-16 py-8 border-y border-white/10 text-center">
+        <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
+        <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase">FIN DEL ENSAYO NEURO-INICIÁTICO</p>
+      </div>
+
+      <details className="mt-8 mb-16 p-6 border border-white/10 bg-[#0a0a0a]/50 rounded-sm cursor-pointer group">
+        <summary className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase list-none flex justify-between items-center group-hover:text-purple-400 transition-colors">
+          <span>Bibliografía de Respaldo (Mostrar / Ocultar)</span>
+          <span className="text-lg leading-none">+</span>
+        </summary>
+        <div className="mt-6 text-sm text-[#8A8881] font-mono leading-relaxed space-y-2 h-64 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10">
+          <p>• Predictive coding - Wikipedia & Neuroscience News</p>
+          <p>• The Noetic Signature Inventory: Development, Exploration, and Initial Validation - PMC</p>
+          <p>• Telepathy in Autistic Savants with Diane Hennacy Powell, MD.</p>
+          <p>• The Default Mode Network: why your distracted brain is actually generating ideas</p>
+          <p>• Atomoxetine Treatment Strengthens an Anti-Correlated Relationship between Functional Brain Networks - PMC</p>
+        </div>
+      </details>
+    </>
+  )
+}
+
 // ── CONTENIDO GENÉRICO PARA ARTÍCULOS PÚBLICOS ────────────────────────────
 function ArticuloPublico({ desc }: { desc: string }) {
   return (
@@ -396,7 +527,8 @@ export default async function InvestigacionPage({ params }: Props) {
       {/* Contenido */}
       <div className="relative w-full px-8 md:px-0 max-w-2xl mx-auto font-serif text-lg md:text-xl leading-relaxed text-[#c4c2bc] article-content">
         {paper.slug === 'gatos-magia-neurociencia' && <ArticuloGatos isUnlocked={isUnlocked} />}
-        {paper.slug !== 'gatos-magia-neurociencia' && paper.access === 'public' && (
+        {paper.slug === 'tdah-y-telepatia-medicacion' && <ArticuloTDAH />}
+        {paper.slug !== 'gatos-magia-neurociencia' && paper.slug !== 'tdah-y-telepatia-medicacion' && paper.access === 'public' && (
           <ArticuloPublico desc={paper.shortDesc} />
         )}
         {paper.access === 'locked' && (

@@ -18,6 +18,21 @@ export interface Investigation {
 
 export const investigations: Investigation[] = [
   {
+    id: '04',
+    slug: 'tdah-y-telepatia-medicacion',
+    date: '12.04.2026',
+    type: 'NEUROBIOLOGÍA INICIÁTICA',
+    access: 'public',
+    title: 'TDAH y Telepatía: La Arquitectura Oculta de la Intuición y el Efecto de la Medicación',
+    shortDesc: '¿Es el TDAH un motor predictivo anómalo? Un análisis sobre la neurodivergencia, la clarividencia y cómo la atomoxetina afecta las simulaciones mentales compartidas.',
+    heroImage: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+    seo: {
+      title: 'TDAH y Telepatía: La Arquitectura Oculta de la Intuición | Arché',
+      description: 'Una investigación rigurosa que conecta el TDAH, el procesamiento predictivo bayesiano y los fenómenos de telepatía, evaluando el impacto de la atomoxetina en la red neuronal por defecto.',
+      keywords: ['TDAH', 'Telepatía', 'Neurociencia', 'Intuición', 'Atomoxetina', 'Neurodivergencia', 'Parapsicología', 'Rupert Sheldrake', 'Red Neuronal por Defecto']
+    }
+  },
+  {
     id: '01',
     slug: 'gatos-magia-neurociencia',
     date: '12.04.2026',
