@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #050505;
+  --text-main: #E8E6E1;
+  --text-muted: #8A8881;
+  --accent: #2C4A3B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #1a1a1a; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* Animación de revelación elegante */
+.reveal-wrapper {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.reveal-text {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+
+@keyframes revealUp {
+  0% { transform: translateY(110%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Estilos para el contenido de artículos */
+.article-content p {
+  margin-bottom: 1.5rem;
+}
+.article-content h3 {
+  color: #E8E6E1;
+  font-size: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+.article-content h4 {
+  color: #E8E6E1;
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-style: italic;
+}
+.article-content ul {
+  list-style-type: none;
+  padding-left: 1.5rem;
+  margin-bottom: 2rem;
+}
+.article-content li {
+  position: relative;
+  margin-bottom: 1rem;
+  color: #c4c2bc;
+}
+.article-content li::before {
+  content: "✦";
+  position: absolute;
+  left: -1.5rem;
+  color: #a855f7;
+  opacity: 0.5;
+  font-size: 0.8rem;
+  top: 0.2rem;
+}
+
+/* Utidad breakout para imágenes full-width dentro de un contenedor */
+.breakout-full {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}

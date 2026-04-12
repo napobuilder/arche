@@ -1,0 +1,417 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Menu, Search, Volume2, VolumeX, Hexagon } from 'lucide-react';
+
+// --- ESTILOS GLOBALES Y ANIMACIONES ---
+const globalStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg-color: #050505;
+    --text-main: #E8E6E1;
+    --text-muted: #8A8881;
+    --accent: #2C4A3B;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-mono {
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* Animación de entrada elegante para los títulos */
+  .reveal-wrapper {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .reveal-text {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.5s; }
+  .delay-4 { animation-delay: 0.7s; }
+
+  @keyframes revealUp {
+    0% { transform: translateY(110%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  /* Ocultar scrollbar para un look más limpio */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333;
+  }
+`;
+
+// --- COMPONENTE CANVAS INTERACTIVO (LA CONSCIENCIA) ---
+const ParticleCanvas = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let particles = [];
+    
+    // Ajustar tamaño
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Mouse interactivty
+    let mouse = { x: null, y: null, radius: 150 };
+    const handleMouseMove = (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // Partícula
+    class Particle {
+      constructor(x, y, dx, dy, size) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.size = size;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 30) + 1;
+      }
+      
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(232, 230, 225, 0.3)'; // Color hueso translúcido
+        ctx.fill();
+      }
+      
+      update() {
+        // Movimiento base flotante
+        this.x += this.dx;
+        this.y += this.dy;
+        if (this.x > canvas.width || this.x < 0) this.dx = -this.dx;
+        if (this.y > canvas.height || this.y < 0) this.dy = -this.dy;
+
+        // Interacción con el mouse (La atención altera el estado)
+        if (mouse.x != null && mouse.y != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
+            let maxDistance = mouse.radius;
+            let force = (maxDistance - distance) / maxDistance;
+            let directionX = forceDirectionX * force * this.density;
+            let directionY = forceDirectionY * force * this.density;
+
+            if (distance < mouse.radius) {
+                this.x -= directionX;
+                this.y -= directionY;
+            } else {
+                if (this.x !== this.baseX) {
+                    let dx = this.x - this.baseX;
+                    this.x -= dx / 50;
+                }
+                if (this.y !== this.baseY) {
+                    let dy = this.y - this.baseY;
+                    this.y -= dy / 50;
+                }
+            }
+        }
+        this.draw();
+      }
+    }
+
+    // Inicializar partículas
+    const init = () => {
+      particles = [];
+      let numberOfParticles = (canvas.width * canvas.height) / 12000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 1.5) + 0.5;
+        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
+        particles.push(new Particle(x, y, dx, dy, size));
+      }
+    };
+
+    // Conectar partículas cercanas con líneas
+    const connect = () => {
+      let opacityValue = 1;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+            + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+          if (distance < (canvas.width / 10) * (canvas.height / 10)) {
+            opacityValue = 1 - (distance / 20000);
+            ctx.strokeStyle = `rgba(232, 230, 225, ${opacityValue * 0.15})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    };
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+      }
+      connect();
+    };
+
+    init();
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-screen z-[2] opacity-80 pointer-events-none mix-blend-screen" />;
+};
+
+// --- COMPONENTE PRINCIPAL APP ---
+export default function App() {
+  const [scrollY, setScrollY] = useState(0);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Datos mock para los papers
+  const papers = [
+    {
+      id: "01",
+      date: "14.11.2025",
+      type: "PAPER CLÍNICO",
+      title: "Resonancia Cognitiva y Ondas Theta",
+      desc: "Un estudio empírico sobre la inducción de estados alterados a través de frecuencias auditivas específicas.",
+      img: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      id: "02",
+      date: "02.04.2026",
+      type: "ENSAYO ESOTÉRICO",
+      title: "La Geometría de la Intuición",
+      desc: "Correlaciones entre patrones geométricos sagrados y la arquitectura de las redes neuronales biológicas.",
+      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      id: "03",
+      date: "En curso",
+      type: "LABORATORIO",
+      title: "El Vacío Perceptible",
+      desc: "Midiendo las fluctuaciones biométricas durante la meditación de disolución del ego.",
+      img: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=800&auto=format&fit=crop"
+    }
+  ];
+
+  return (
+    <div className="relative w-full min-h-screen bg-[#050505] text-[#E8E6E1] selection:bg-[#2C4A3B] selection:text-white">
+      <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
+
+      {/* NAVBAR */}
+      <nav className={`fixed top-0 left-0 w-full px-8 py-6 flex justify-between items-center z-50 transition-all duration-700 ${scrollY > 50 ? 'bg-[#050505]/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent'}`}>
+        <div className="flex items-center gap-2 group cursor-pointer">
+          <div className="w-8 h-8 flex items-center justify-center border border-[#E8E6E1]/30 rounded-sm group-hover:border-[#E8E6E1] transition-colors">
+            <Hexagon className="w-4 h-4 text-[#E8E6E1]" strokeWidth={1.5} />
+          </div>
+          <span className="font-serif tracking-widest text-xl uppercase">Archē</span>
+        </div>
+        
+        <div className="hidden md:flex gap-8 font-mono text-xs tracking-widest text-[#8A8881]">
+          <a href="#vision" className="hover:text-[#E8E6E1] transition-colors">VISIÓN</a>
+          <a href="#papers" className="hover:text-[#E8E6E1] transition-colors">ARCHIVO</a>
+          <a href="#lab" className="hover:text-[#E8E6E1] transition-colors">LABORATORIO</a>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <button 
+            onClick={() => setAudioEnabled(!audioEnabled)}
+            className="flex items-center gap-2 font-mono text-[10px] text-[#8A8881] hover:text-[#E8E6E1] transition-colors"
+          >
+            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            <span className="hidden sm:block">SOUNDSCAPE {audioEnabled ? 'ON' : 'OFF'}</span>
+          </button>
+          <button className="p-2 border border-white/10 rounded-full hover:bg-white/10 transition-colors">
+            <Menu className="w-4 h-4" />
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <header 
+        className="sticky top-0 z-0 w-full h-[100svh] flex flex-col overflow-hidden group"
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+          e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+        }}
+      >
+        {/* Spotlight Amatista */}
+        <div 
+          className="pointer-events-none absolute inset-0 z-[1] opacity-0 transition-opacity duration-700 group-hover:opacity-100 mix-blend-screen"
+          style={{
+            background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.12), rgba(76, 29, 149, 0.05) 25%, transparent 45%)'
+          }}
+        />
+
+        <ParticleCanvas />
+        
+        {/* ENVOLTORIO FLEX: Estructura robusta para evitar recortes */}
+        <div className="relative z-10 flex flex-col h-full w-full px-8 md:px-24 pt-28 pb-8">
+          
+          {/* Bloque Central Dinámico - Ocupa el espacio disponible y se centra a sí mismo */}
+          <div className="flex-1 flex flex-col justify-center pointer-events-none max-w-4xl" style={{ transform: `translateY(${scrollY * 0.3}px)`, opacity: 1 - scrollY / 600 }}>
+            
+            <div className="font-mono text-xs text-[#8A8881] mb-4 md:mb-6 flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-[#8A8881]"></span>
+              <span>FUNDACIÓN DE INVESTIGACIÓN</span>
+            </div>
+            
+            {/* Texto ajustado sutilmente para resoluciones más bajas (md:text-7xl xl:text-8xl) */}
+            <h1 className="font-serif text-5xl md:text-7xl xl:text-8xl leading-[1.05] mb-6 font-light shrink-0">
+              <div className="reveal-wrapper"><span className="reveal-text delay-1">Explorando la</span></div><br />
+              <div className="reveal-wrapper"><span className="reveal-text delay-2 text-[#8A8881] italic pr-4">arquitectura oculta</span></div><br />
+              <div className="reveal-wrapper"><span className="reveal-text delay-3">de la consciencia.</span></div>
+            </h1>
+            
+            {/* Bloque interactivo de revelación */}
+            <div className="mt-2 md:mt-4 reveal-wrapper pointer-events-auto shrink-0">
+              <div className="relative group/text cursor-default w-fit">
+                
+                {/* Texto principal */}
+                <p className="relative font-serif text-base md:text-lg text-[#8A8881] max-w-md leading-relaxed transition-all duration-500 group-hover/text:opacity-0 group-hover/text:blur-sm reveal-text delay-3">
+                  Un puente riguroso entre la investigación de vanguardia y el misterio humano.
+                </p>
+                
+                {/* Texto oculto */}
+                <div className="absolute inset-0 flex items-center justify-start opacity-0 blur-md transition-all duration-500 group-hover/text:opacity-100 group-hover/text:blur-0 pointer-events-none">
+                  <p className="font-mono text-[10px] md:text-xs text-[#E8E6E1] tracking-widest uppercase border-l border-purple-500/50 pl-4 py-1 leading-relaxed max-w-sm">
+                    Un refugio diseñado para mantener viva tu curiosidad.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Bloque Inferior - Siempre al fondo de la pantalla (Shrink-0 impide que sea aplastado) */}
+          <div className="w-full flex justify-center shrink-0 pointer-events-auto z-20">
+            <div 
+              onClick={() => document.getElementById('papers').scrollIntoView({ behavior: 'smooth' })}
+              className="flex flex-col items-center gap-2 opacity-50 cursor-pointer hover:opacity-100 transition-all duration-500 hover:-translate-y-2"
+            >
+              <span className="font-mono text-[10px] tracking-widest">DESCUBRIR</span>
+              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-white/50 to-transparent group-hover:from-purple-500/50 transition-colors duration-700"></div>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      {/* ACADEMIC CONTENT SECTION */}
+      <section id="papers" className="relative z-20 w-full bg-[#050505] px-8 md:px-24 py-32 border-t border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <h2 className="font-serif text-4xl md:text-5xl font-light">
+            Archivo Abierto <br />
+            <span className="text-[#8A8881] italic">Investigaciones</span>
+          </h2>
+          <p className="font-mono text-xs max-w-xs text-[#8A8881] text-justify">
+            PUBLICACIONES RECIENTES, ENSAYOS Y REGISTROS DE LABORATORIO SOBRE LA INTERSECCIÓN ENTRE LA NEUROCIENCIA Y EL MISTICISMO.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {papers.map((paper, index) => (
+            <article key={paper.id} className="group cursor-pointer flex flex-col gap-6">
+              <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#0f0f0f] rounded-sm">
+                <div className="absolute top-4 left-4 z-10 flex gap-2">
+                  <span className="bg-white/10 backdrop-blur-md px-2 py-1 text-[10px] font-mono rounded-sm border border-white/10">
+                    {paper.id}
+                  </span>
+                </div>
+                <img 
+                  src={paper.img} 
+                  alt={paper.title} 
+                  className="w-full h-full object-cover opacity-40 blur-md grayscale transition-all duration-700 ease-out 
+                             group-hover:opacity-100 group-hover:blur-none group-hover:scale-105 group-hover:grayscale-0"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between font-mono text-[10px] text-[#8A8881] tracking-wider border-b border-white/10 pb-2">
+                  <span>{paper.date}</span>
+                  <span>{paper.type}</span>
+                </div>
+                <h3 className="font-serif text-2xl mt-2 group-hover:text-[#2C4A3B] transition-colors duration-300">
+                  {paper.title}
+                </h3>
+                <p className="font-serif text-[#8A8881] leading-relaxed text-sm">
+                  {paper.desc}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="w-full px-8 md:px-24 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 bg-[#020202]">
+        <div className="flex items-center gap-2 text-[#8A8881]">
+          <Hexagon className="w-5 h-5" strokeWidth={1} />
+          <span className="font-serif tracking-widest uppercase">Archē</span>
+        </div>
+        
+        <div className="font-mono text-[10px] text-[#8A8881] tracking-widest text-center">
+          © 2026 FUNDACIÓN PARA LA INVESTIGACIÓN DE LA CONSCIENCIA.
+        </div>
+        
+        <div className="flex gap-6 font-mono text-[10px]">
+          <a href="#" className="hover:text-white transition-colors">CONTACTO</a>
+          <a href="#" className="hover:text-white transition-colors">MANIFESTO</a>
+        </div>
+      </footer>
+    </div>
+  );
+}

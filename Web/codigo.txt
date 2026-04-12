@@ -1,0 +1,715 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Menu, Search, Volume2, VolumeX, Hexagon, X, Lock, Unlock } from 'lucide-react';
+
+// --- ESTILOS GLOBALES Y ANIMACIONES ---
+const globalStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg-color: #050505;
+    --text-main: #E8E6E1;
+    --text-muted: #8A8881;
+    --accent: #2C4A3B;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-mono {
+    font-family: 'Space Mono', monospace;
+  }
+
+  .reveal-wrapper {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .reveal-text {
+    display: inline-block;
+    transform: translateY(110%);
+    opacity: 0;
+    animation: revealUp 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.5s; }
+
+  @keyframes revealUp {
+    0% { transform: translateY(110%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #333;
+  }
+
+  /* Estilos para el contenido del artículo */
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+  .article-content h3 {
+    color: #E8E6E1;
+    font-size: 2rem;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .article-content h4 {
+    color: #E8E6E1;
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .article-content ul {
+    list-style-type: none;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .article-content li {
+    position: relative;
+    margin-bottom: 1rem;
+    color: #c4c2bc;
+  }
+  .article-content li::before {
+    content: "✦";
+    position: absolute;
+    left: -1.5rem;
+    color: #a855f7; /* purple-500 */
+    opacity: 0.5;
+    font-size: 0.8rem;
+    top: 0.2rem;
+  }
+  
+  /* Utilidad para romper el contenedor y hacer imágenes full-width */
+  .breakout-full {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+`;
+
+// --- COMPONENTE CANVAS INTERACTIVO ---
+const ParticleCanvas = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+    let particles = [];
+    
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    let mouse = { x: null, y: null, radius: 150 };
+    const handleMouseMove = (event) => {
+      mouse.x = event.x;
+      mouse.y = event.y;
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    class Particle {
+      constructor(x, y, dx, dy, size) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.size = size;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 30) + 1;
+      }
+      
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(232, 230, 225, 0.3)'; 
+        ctx.fill();
+      }
+      
+      update() {
+        this.x += this.dx;
+        this.y += this.dy;
+        if (this.x > canvas.width || this.x < 0) this.dx = -this.dx;
+        if (this.y > canvas.height || this.y < 0) this.dy = -this.dy;
+
+        if (mouse.x != null && mouse.y != null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let forceDirectionX = dx / distance;
+            let forceDirectionY = dy / distance;
+            let maxDistance = mouse.radius;
+            let force = (maxDistance - distance) / maxDistance;
+            let directionX = forceDirectionX * force * this.density;
+            let directionY = forceDirectionY * force * this.density;
+
+            if (distance < mouse.radius) {
+                this.x -= directionX;
+                this.y -= directionY;
+            } else {
+                if (this.x !== this.baseX) {
+                    let dx = this.x - this.baseX;
+                    this.x -= dx / 50;
+                }
+                if (this.y !== this.baseY) {
+                    let dy = this.y - this.baseY;
+                    this.y -= dy / 50;
+                }
+            }
+        }
+        this.draw();
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      let numberOfParticles = (canvas.width * canvas.height) / 12000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 1.5) + 0.5;
+        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+        let dx = (Math.random() - 0.5) * 0.5;
+        let dy = (Math.random() - 0.5) * 0.5;
+        particles.push(new Particle(x, y, dx, dy, size));
+      }
+    };
+
+    const connect = () => {
+      let opacityValue = 1;
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+            + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+          if (distance < (canvas.width / 10) * (canvas.height / 10)) {
+            opacityValue = 1 - (distance / 20000);
+            ctx.strokeStyle = `rgba(232, 230, 225, ${opacityValue * 0.15})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    };
+
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+      }
+      connect();
+    };
+
+    init();
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-screen z-[2] opacity-80 pointer-events-none mix-blend-screen" />;
+};
+
+// --- COMPONENTE PRINCIPAL APP ---
+export default function App() {
+  const [scrollY, setScrollY] = useState(0);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false); 
+  const [activeArticle, setActiveArticle] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (activeArticle) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [activeArticle]);
+
+  // ESTRUCTURA INTELIGENTE DE ARCHIVOS
+  const papers = [
+    {
+      id: "01",
+      date: "12.04.2026",
+      type: "INVESTIGACIÓN PROFUNDA",
+      access: "partial", 
+      title: "Gatos, Magia y Ocultismo",
+      desc: "Un Análisis Histórico, Filosófico y Científico de la Simbiosis Felino-Iniciática.",
+      img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1200&auto=format&fit=crop"
+    },
+    {
+      id: "02",
+      date: "02.04.2026",
+      type: "ENSAYO ABIERTO",
+      access: "public", 
+      title: "La Geometría de la Intuición",
+      desc: "Correlaciones entre patrones geométricos sagrados y la arquitectura de las redes neuronales biológicas.",
+      img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      id: "03",
+      date: "En curso",
+      type: "LABORATORIO RESTRINGIDO",
+      access: "locked", 
+      title: "El Vacío Perceptible",
+      desc: "Midiendo las fluctuaciones biométricas durante la meditación de disolución del ego.",
+      img: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=800&auto=format&fit=crop"
+    }
+  ];
+
+  return (
+    <div className="relative w-full min-h-screen bg-[#050505] text-[#E8E6E1] selection:bg-[#2C4A3B] selection:text-white overflow-x-hidden">
+      <style dangerouslySetInnerHTML={{ __html: globalStyles }} />
+
+      {/* OVERLAY DEL ARTÍCULO */}
+      <div 
+        className={`fixed inset-0 z-[100] bg-[#050505] transform transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] overflow-y-auto ${activeArticle ? 'translate-y-0' : 'translate-y-full'}`}
+      >
+        {activeArticle && (
+          <article className="relative w-full min-h-screen pb-32">
+            <button 
+              onClick={() => setActiveArticle(null)}
+              className="fixed top-8 right-8 z-[110] p-4 bg-[#050505]/50 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 transition-colors group"
+            >
+              <X className="w-6 h-6 text-[#8A8881] group-hover:text-white transition-colors" />
+            </button>
+
+            {/* Cabecera del Artículo */}
+            <header className="relative w-full h-[70vh] flex flex-col justify-end px-8 md:px-32 pb-16">
+              <div className="absolute inset-0 z-0">
+                <img src={activeArticle.img} alt={activeArticle.title} className="w-full h-full object-cover opacity-20 grayscale" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
+              </div>
+              
+              <div className="relative z-10 max-w-4xl">
+                <div className="flex gap-4 font-mono text-[10px] text-[#8A8881] tracking-widest mb-6">
+                  <span>{activeArticle.date}</span>
+                  <span>/</span>
+                  <span className={`${activeArticle.access === 'locked' ? 'text-red-400/70' : 'text-purple-400/70'}`}>
+                    {activeArticle.type}
+                  </span>
+                </div>
+                <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 flex items-center gap-6">
+                  {activeArticle.access === 'locked' && <Lock className="w-10 h-10 text-white/20 hidden md:block" />}
+                  {activeArticle.title}
+                </h1>
+              </div>
+            </header>
+
+            {/* CONTENIDO DEL ARTÍCULO */}
+            <div className="relative w-full px-8 md:px-0 max-w-2xl mx-auto font-serif text-lg md:text-xl leading-relaxed text-[#c4c2bc] article-content">
+              
+              {/* RENDERIZADO ESPECIAL PARA EL ARTÍCULO 01 (La Investigación Real con Imágenes) */}
+              {activeArticle.id === '01' && (
+                <>
+                  {/* Firma de Autor */}
+                  <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
+                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                      <Hexagon className="w-5 h-5 text-purple-400/50" />
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
+                      <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+                    </div>
+                  </div>
+
+                  <p className="mb-12 text-2xl md:text-3xl text-[#E8E6E1] font-light italic border-l-2 border-purple-500/30 pl-8 leading-snug">
+                    {activeArticle.desc}
+                  </p>
+                  
+                  <p>
+                    La presencia del felino en la historia de la humanidad trasciende, con creces, la mera domesticación utilitaria para adentrarse profundamente en los dominios de la teología, la filosofía esotérica y, de manera contemporánea, la investigación empírica e interdisciplinaria.
+                  </p>
+                  <p>
+                    Desde los grandes templos del antiguo Egipto, pasando por los grimorios medievales que dictaminaban las bases de la brujería tradicional europea, hasta llegar a los laboratorios modernos de bioacústica y neuropsicología, el gato (<i>Felis silvestris catus</i>) ha sido invariablemente posicionado como una entidad liminal. Se trata de un organismo que habita perpetuamente en la frontera: entre lo doméstico y lo indómito, entre la materia tangible y el espíritu inmaterial, y entre la luz de la razón humana y la oscuridad del instinto animal.
+                  </p>
+
+                  <h3>Evolución Histórica y Contexto Académico</h3>
+                  <p>
+                    La ontología del gato como una criatura intrínsecamente mágica no es un constructo de la era moderna, sino el resultado de milenios de sincretismo cultural, profunda reverencia teológica y, durante ciertos periodos, un pánico persecutorio sistemático. La fluctuación del estatus del felino a lo largo de los siglos funciona como un espejo que refleja las ansiedades, las estructuras de poder y las cosmologías de las sociedades que lo han albergado.
+                  </p>
+
+                  <h4>La Deificación y el Paradigma Egipcio</h4>
+                  <p>
+                    En el contexto de la antigüedad, el antiguo Egipto representa el apogeo de la integración del felino en la cosmovisión mágico-religiosa de una civilización. La relación inicial, forjada en los albores del periodo Neolítico a través de la necesidad agrícola de controlar las poblaciones de roedores y serpientes en los graneros, evolucionó con una rapidez sin precedentes hacia una veneración teológica absoluta.
+                  </p>
+
+                  {/* IMAGEN 1: FULL BLEED BREAKOUT (Awwwards Style) */}
+                  <div className="breakout-full h-[50vh] md:h-[70vh] my-20 overflow-hidden group">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/960px-All_Gizah_Pyramids.jpg" 
+                      alt="Pirámides de Giza" 
+                      className="w-full h-full object-cover grayscale opacity-50 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                    />
+                    <div className="absolute bottom-6 right-8 text-right pointer-events-none">
+                      <p className="font-mono text-[10px] tracking-widest text-white/50 uppercase">Complejo de Giza</p>
+                      <p className="font-serif text-sm text-white/30 italic">Epicentro de la deificación</p>
+                    </div>
+                  </div>
+
+                  <p>
+                    Los gatos no eran considerados mascotas en el sentido occidental contemporáneo; eran percibidos como receptáculos sagrados, conductos materiales a través de los cuales las fuerzas divinas interactuaban con el plano terrenal. El estatus esotérico del gato dictaminaba prácticas socioculturales de extrema severidad. La práctica extendida de la momificación felina no era un acto de simple preservación.
+                  </p>
+
+                  {/* IMAGEN 2 & 3: MASONRY ASIMÉTRICO */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-20 items-start">
+                    <figure className="group">
+                      <div className="overflow-hidden bg-[#0a0a0a] border border-white/5">
+                        <img 
+                          src="https://www.enfolang.com/img/cultura/gatos-egipto.jpg" 
+                          alt="Momia de Gato" 
+                          className="w-full aspect-[4/5] object-cover grayscale opacity-60 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100"
+                        />
+                      </div>
+                      <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+                        <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">FIGURA I.</p>
+                        <p className="font-serif text-sm text-[#c4c2bc] italic">Ritual funerario y preservación del Ka felino.</p>
+                      </figcaption>
+                    </figure>
+                    
+                    <figure className="group md:mt-24">
+                      <div className="overflow-hidden bg-[#0a0a0a] border border-white/5">
+                        <img 
+                          src="https://images.ecestaticos.com/8VJ5Lk6ld76DiCfQ9uOOCFIW3II=/0x0:2068x1449/557x418/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2Faec%2F5e4%2Fc27%2Faec5e4c274906ff8ec1638fcf416b02b.jpg" 
+                          alt="Papiro Egipcio" 
+                          className="w-full aspect-square object-cover grayscale opacity-60 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100"
+                        />
+                      </div>
+                      <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+                        <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">FIGURA II.</p>
+                        <p className="font-serif text-sm text-[#c4c2bc] italic">El gran gato de Heliópolis aniquilando a la serpiente Apofis.</p>
+                      </figcaption>
+                    </figure>
+                  </div>
+
+                  <h4>La Demonización en la Edad Media y los Juicios por Brujería</h4>
+                  <p>
+                    La transformación radical del estatus del gato, pasando de ser una deidad tutelar a convertirse en la encarnación del mal, coincide históricamente con la expansión y consolidación del cristianismo en Europa y la consecuente supresión de las prácticas paganas e indígenas. La asociación de los felinos con diosas de la antigüedad y con la autonomía femenina los posicionó como símbolos vivos de la herejía.
+                  </p>
+
+                  {/* IMAGEN 4: CINE-STYLE WIDE */}
+                  <figure className="my-16 group">
+                    <div className="w-full overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+                      <img 
+                        src="https://www.uv.es/recursos/fatwirepub/ccurl/168/937/estudios%20medievales.jpg" 
+                        alt="Europa Medieval" 
+                        className="w-full h-64 md:h-80 object-cover grayscale opacity-40 transition-all duration-[1.5s] group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105"
+                      />
+                    </div>
+                    <figcaption className="mt-4 text-center">
+                      <p className="font-serif text-sm text-[#8A8881] italic">Oscurantismo y persecución eclesiástica (Siglos XIII - XVII).</p>
+                    </figcaption>
+                  </figure>
+
+                  <p>
+                    En 1233, el Papa Gregorio IX emitió la bula papal <i>Vox in Rama</i>, el primer documento eclesiástico oficial que vinculaba directamente a los gatos, especialmente a los de pelaje negro, con la adoración satánica. Durante el clímax de la caza de brujas, el gato asumió el papel central del "espíritu familiar", una entidad otorgada por el diablo para asistir a la bruja en la ejecución de magia maléfica.
+                  </p>
+
+                  {/* SECCIÓN NUEVA: HERMETISMO (Usando a Eliphas Levi) */}
+                  <h3>Fundamentos Filosóficos y Naturaleza Hermética</h3>
+                  
+                  {/* IMAGEN 5: ELIPHAS LEVI FLOAT RIGHT CON TEXTO ENVOLVENTE */}
+                  <div className="my-12 clear-both">
+                    <img 
+                      src="https://redhistoria.com/wp-content/uploads/2024/05/eliphas-levi.jpg" 
+                      alt="Eliphas Levi" 
+                      className="float-none md:float-right w-full md:w-64 h-auto ml-0 md:ml-8 mb-6 md:mb-4 grayscale opacity-70 border border-white/10 p-2 bg-[#050505] hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                    />
+                    <p>
+                      Dentro de la arquitectura del esoterismo occidental, especialmente en los postulados de figuras centrales del siglo XIX como Éliphas Lévi, la realidad material es apenas la capa superficial de un cosmos multidimensional. Lévi conceptualizó la <i>Luz Astral</i> como un agente electromagnético universal, un fluido sutil y omnipresente que interpenetra toda la materia.
+                    </p>
+                    <p>
+                      La tradición hermética sostiene que los gatos poseen una sintonía fisiológica y espiritual inherente con estas corrientes. Mientras que el ser humano común está cegado a las fluctuaciones de este fluido, el aparato neurosensorial del gato funciona como un osciloscopio natural capaz de registrar las variaciones en la densidad astral, rastreando formas de pensamiento o elementales artificiales.
+                    </p>
+                  </div>
+
+                  <h3>Evidencia Científica y Científico-Alternativa</h3>
+                  <p>
+                    Históricamente, los poderes atribuidos a los gatos fueron despachados por el materialismo científico como meras supersticiones. No obstante, el avance de la neuropsicología, la bioacústica y la biología evolutiva ha comenzado a revelar los mecanismos tangibles detrás de este folclore.
+                  </p>
+
+                  {/* IMAGEN 6: GATO MEDITACIÓN - ATMOSFÉRICA */}
+                  <figure className="my-16 group relative flex justify-center">
+                    <div className="absolute inset-0 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none transition-all duration-1000 group-hover:bg-purple-500/20" />
+                    <img 
+                      src="https://cdn.shopify.com/s/files/1/0102/3207/0207/files/Les_chats_et_la_meditation_-_Comment_inclure_votre_chat_dans_vos_seances_570f7b49-5cc7-482d-968a-769a9f698c9e_480x480.jpg?v=1721994908" 
+                      alt="Meditación con Gato" 
+                      className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover grayscale opacity-60 border-2 border-white/5 transition-all duration-1000 group-hover:grayscale-[0.5] group-hover:opacity-100 relative z-10"
+                    />
+                  </figure>
+
+                  <h4>1. Bioacústica y Osteogénesis: La Medicina Frecuencial del Ronroneo</h4>
+                  <p>
+                    Quizás la validación científica más espectacular de la magia curativa felina reside en el análisis acústico de su ronroneo. Investigaciones han demostrado que los felinos emiten estas vibraciones en un rango de frecuencia fundamental muy específico: entre 25 y 150 Hertz (Hz).
+                  </p>
+                  <ul>
+                    <li><strong>25 a 50 Hz:</strong> Acelera masivamente el metabolismo de los osteoblastos, incrementando la densidad ósea y estimulando la regeneración y consolidación de fracturas.</li>
+                    <li><strong>50 a 100 Hz:</strong> Fomenta la cicatrización de heridas, la reparación de tendones desgarrados y la regeneración celular de tejidos blandos.</li>
+                    <li><strong>100 a 150 Hz:</strong> Actúa como un potente mecanismo analgésico y antiinflamatorio.</li>
+                  </ul>
+
+                  {/* PAYWALL */}
+                  <div className="relative mt-12 pt-32 clear-both">
+                    <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-transparent via-[#050505]/90 to-[#050505] pointer-events-none" />
+                    
+                    <div className="relative z-10 border border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md p-8 md:p-12 flex flex-col items-center text-center shadow-[0_0_50px_rgba(139,92,246,0.03)] rounded-sm">
+                      <Unlock className="w-6 h-6 text-purple-400/50 mb-6" />
+                      <h3 className="font-serif text-3xl mb-4 text-[#E8E6E1] mt-0">Archivo Premium</h3>
+                      <p className="font-mono text-[10px] text-[#8A8881] tracking-widest leading-loose mb-8 max-w-sm">
+                        EL ESTUDIO COMPLETO INCLUYENDO "MAGNETORRECEPCIÓN Y VISIÓN ULTRAVIOLETA", "CAMPOS MÓRFICOS" Y LA "GUÍA DE MAGIA SIMPÁTICA APLICADA" ESTÁ RESERVADO PARA MIEMBROS.
+                      </p>
+                      
+                      <div className="flex flex-col gap-4 w-full sm:w-auto">
+                        <button className="bg-[#E8E6E1] text-[#050505] font-mono text-[10px] tracking-widest px-12 py-4 hover:bg-white transition-all duration-300">
+                          DESBLOQUEAR CON PAYPAL
+                        </button>
+                        <button className="text-[#8A8881] hover:text-white font-mono text-[10px] tracking-widest px-12 py-4 transition-colors border border-white/5 hover:border-white/20">
+                          INICIAR SESIÓN
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* RENDERIZADO GENÉRICO PARA OTROS ARTÍCULOS PÚBLICOS */}
+              {activeArticle.id !== '01' && activeArticle.access === 'public' && (
+                <>
+                  <p className="mb-8 text-2xl text-[#E8E6E1] font-light italic border-l-2 border-purple-500/30 pl-6">
+                    {activeArticle.desc}
+                  </p>
+                  <p className="mb-6">
+                    [Contenido del ensayo abierto de ejemplo. Aquí el lector puede disfrutar del texto completo sin barreras de pago, ideal para compartir en redes.]
+                  </p>
+                  <div className="my-12 py-8 border-y border-white/10 text-center">
+                    <Hexagon className="w-6 h-6 mx-auto mb-4 text-white/20" />
+                    <p className="font-mono text-[10px] tracking-widest text-[#8A8881]">FIN DEL ENSAYO ABIERTO</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </article>
+        )}
+      </div>
+
+      {/* NAVBAR */}
+      <nav className={`fixed top-0 left-0 w-full px-8 py-6 flex justify-between items-center z-50 transition-all duration-700 ${scrollY > 50 && !activeArticle ? 'bg-[#050505]/80 backdrop-blur-md border-b border-white/5 py-4' : 'bg-transparent'}`}>
+        <div className="flex items-center gap-2 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+          <div className="w-8 h-8 flex items-center justify-center border border-[#E8E6E1]/30 rounded-sm group-hover:border-[#E8E6E1] transition-colors">
+            <Hexagon className="w-4 h-4 text-[#E8E6E1]" strokeWidth={1.5} />
+          </div>
+          <span className="font-serif tracking-widest text-xl uppercase">Archē</span>
+        </div>
+        
+        <div className="hidden md:flex gap-8 font-mono text-xs tracking-widest text-[#8A8881]">
+          <a href="#vision" className="hover:text-[#E8E6E1] transition-colors">VISIÓN</a>
+          <a href="#papers" className="hover:text-[#E8E6E1] transition-colors">ARCHIVO</a>
+          <a href="#lab" className="hover:text-[#E8E6E1] transition-colors">LABORATORIO</a>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <button 
+            onClick={() => setAudioEnabled(!audioEnabled)}
+            className="flex items-center gap-2 font-mono text-[10px] text-[#8A8881] hover:text-[#E8E6E1] transition-colors"
+          >
+            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            <span className="hidden sm:block">SOUNDSCAPE {audioEnabled ? 'ON' : 'OFF'}</span>
+          </button>
+          <button className="p-2 border border-white/10 rounded-full hover:bg-white/10 transition-colors">
+            <Menu className="w-4 h-4" />
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO SECTION - AHORA CON FIXED Y LEFT-0 PARA EFECTO CORTINA PURO */}
+      <header 
+        className="fixed top-0 left-0 z-0 w-full h-[100svh] flex flex-col overflow-hidden group"
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+          e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+        }}
+      >
+        <div 
+          className="pointer-events-none absolute inset-0 z-[1] opacity-0 transition-opacity duration-700 group-hover:opacity-100 mix-blend-screen"
+          style={{
+            background: 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(139, 92, 246, 0.12), rgba(76, 29, 149, 0.05) 25%, transparent 45%)'
+          }}
+        />
+
+        <ParticleCanvas />
+        
+        <div className="relative z-10 flex flex-col h-full w-full px-8 md:px-24 pt-28 pb-8">
+          <div className="flex-1 flex flex-col justify-center pointer-events-none max-w-4xl" style={{ transform: `translateY(${scrollY * 0.3}px)`, opacity: 1 - scrollY / 600 }}>
+            
+            <div className="font-mono text-xs text-[#8A8881] mb-4 md:mb-6 flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-[#8A8881]"></span>
+              <span>FUNDACIÓN DE INVESTIGACIÓN</span>
+            </div>
+            
+            <h1 className="font-serif text-5xl md:text-7xl xl:text-8xl leading-[1.05] mb-6 font-light shrink-0">
+              <div className="reveal-wrapper"><span className="reveal-text delay-1">Explorando la</span></div><br />
+              <div className="reveal-wrapper">
+                <span className="reveal-text delay-2 text-[#8A8881] italic pr-4">
+                  arquitectura{' '}
+                  <span 
+                    className={`transition-colors duration-500 pointer-events-auto cursor-crosshair ${isRevealed ? 'text-[#E8E6E1]' : 'text-[#8A8881]'}`}
+                    onMouseEnter={() => setIsRevealed(true)}
+                    onMouseLeave={() => setIsRevealed(false)}
+                    onClick={() => setIsRevealed(!isRevealed)}
+                  >
+                    oculta
+                  </span>
+                </span>
+              </div><br />
+              <div className="reveal-wrapper"><span className="reveal-text delay-3">de la consciencia.</span></div>
+            </h1>
+            
+            <div className="mt-2 md:mt-4 reveal-wrapper pointer-events-auto shrink-0">
+              <div 
+                className="relative cursor-default w-fit"
+                onMouseEnter={() => setIsRevealed(true)}
+                onMouseLeave={() => setIsRevealed(false)}
+                onClick={() => setIsRevealed(!isRevealed)}
+              >
+                <p className={`relative font-serif text-base md:text-lg text-[#8A8881] max-w-md leading-relaxed transition-all duration-500 reveal-text delay-3 ${isRevealed ? 'opacity-0 blur-sm' : 'opacity-100 blur-0'}`}>
+                  Un puente riguroso entre la investigación de vanguardia y el misterio humano.
+                </p>
+                <div className={`absolute inset-0 flex items-center justify-start transition-all duration-500 pointer-events-none ${isRevealed ? 'opacity-100 blur-0' : 'opacity-0 blur-md'}`}>
+                  <p className="font-mono text-[10px] md:text-xs text-[#E8E6E1] tracking-widest uppercase border-l border-purple-500/50 pl-4 py-1 leading-relaxed max-w-sm">
+                    Un refugio diseñado para mantener viva tu curiosidad.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="w-full flex justify-center shrink-0 pointer-events-auto z-20">
+            <div 
+              onClick={() => document.getElementById('papers').scrollIntoView({ behavior: 'smooth' })}
+              className="flex flex-col items-center gap-2 opacity-50 cursor-pointer hover:opacity-100 transition-all duration-500 hover:-translate-y-2"
+            >
+              <span className="font-mono text-[10px] tracking-widest">DESCUBRIR</span>
+              <div className="w-[1px] h-10 md:h-12 bg-gradient-to-b from-white/50 to-transparent group-hover:from-purple-500/50 transition-colors duration-700"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ACADEMIC CONTENT SECTION - AHORA CON MARGIN-TOP PARA TAPAR AL HERO */}
+      <section id="papers" className="relative z-20 w-full mt-[100svh] bg-[#050505] px-8 md:px-24 py-32 border-t border-white/10 shadow-[0_-30px_80px_rgba(0,0,0,1)]">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <h2 className="font-serif text-4xl md:text-5xl font-light">
+            Archivo Abierto <br />
+            <span className="text-[#8A8881] italic">Investigaciones</span>
+          </h2>
+          <p className="font-mono text-xs max-w-xs text-[#8A8881] text-justify">
+            PUBLICACIONES RECIENTES, ENSAYOS Y REGISTROS DE LABORATORIO SOBRE LA INTERSECCIÓN ENTRE LA NEUROCIENCIA Y EL MISTICISMO.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {papers.map((paper) => (
+            <article 
+              key={paper.id} 
+              className="group cursor-pointer flex flex-col gap-6"
+              onClick={() => setActiveArticle(paper)}
+            >
+              <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#0f0f0f] rounded-sm">
+                <div className="absolute top-4 left-4 z-10 flex gap-2">
+                  <span className="bg-white/10 backdrop-blur-md px-2 py-1 text-[10px] font-mono rounded-sm border border-white/10">
+                    {paper.id}
+                  </span>
+                  {paper.access === 'locked' && (
+                    <span className="bg-white/10 backdrop-blur-md px-2 py-1 text-[10px] rounded-sm border border-white/10 flex items-center justify-center">
+                      <Lock className="w-3 h-3 text-[#E8E6E1]" />
+                    </span>
+                  )}
+                </div>
+                <img 
+                  src={paper.img} 
+                  alt={paper.title} 
+                  className="w-full h-full object-cover opacity-40 blur-md grayscale transition-all duration-700 ease-out 
+                               group-hover:opacity-100 group-hover:blur-none group-hover:scale-105 group-hover:grayscale-0"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between font-mono text-[10px] text-[#8A8881] tracking-wider border-b border-white/10 pb-2">
+                  <span>{paper.date}</span>
+                  <span className={`${paper.access === 'locked' ? 'text-red-400/50' : ''}`}>{paper.type}</span>
+                </div>
+                <h3 className="font-serif text-2xl mt-2 group-hover:text-[#2C4A3B] transition-colors duration-300">
+                  {paper.title}
+                </h3>
+                <p className="font-serif text-[#8A8881] leading-relaxed text-sm line-clamp-3">
+                  {paper.desc}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="relative z-20 w-full px-8 md:px-24 py-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 bg-[#020202]">
+        <div className="flex items-center gap-2 text-[#8A8881]">
+          <Hexagon className="w-5 h-5" strokeWidth={1} />
+          <span className="font-serif tracking-widest uppercase">Archē</span>
+        </div>
+        
+        <div className="font-mono text-[10px] text-[#8A8881] tracking-widest text-center">
+          © 2026 FUNDACIÓN PARA LA INVESTIGACIÓN DE LA CONSCIENCIA.
+        </div>
+        
+        <div className="flex gap-6 font-mono text-[10px]">
+          <a href="#" className="hover:text-white transition-colors">CONTACTO</a>
+          <a href="#" className="hover:text-white transition-colors">MANIFESTO</a>
+        </div>
+      </footer>
+    </div>
+  );
+}
