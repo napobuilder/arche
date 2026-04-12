@@ -170,14 +170,39 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
           <p>En paralelo a la sensibilidad lumínica, emerge el estudio de la magnetorrecepción. La capacidad de los gatos de retornar a sus hogares recorriendo distancias imposibles se sustenta en su capacidad para percibir el campo geomagnético de la Tierra. La identificación de moléculas de criptocromo en las estructuras oculares de varios mamíferos sugiere que los gatos poseen una brújula biológica integrada. Esta sensibilidad geomagnética los hace extremadamente perceptivos a las variaciones en los campos electromagnéticos locales, fenómenos que a menudo preceden a eventos anómalos o manifestaciones de poltergeist.</p>
           
           <h4>3. Teoría de los Campos Mórficos y Telepatía Anticipatoria (Rupert Sheldrake)</h4>
-          <p>Para explicar las asombrosas capacidades intuitivas de los felinos desde un marco no materialista, es imprescindible recurrir a la obra del biólogo de la Universidad de Cambridge, el Dr. Rupert Sheldrake. En su riguroso trabajo, Sheldrake desafía el dogma mecanicista a través de la hipótesis de la Resonancia Mórfica.</p>
-          <p>Sheldrake postula que las mentes de los seres vivos operan como "campos mórficos" que se extienden espacialmente hacia el entorno. Cuando dos seres desarrollan un vínculo emocional y empático profundo, sus campos mórficos se entrelazan, permitiendo la transmisión instantánea de información a distancia. En el contexto del esoterismo, esta validación científica subraya cómo el gato funciona como una extensión perisensorial de la conciencia del mago, capaz de leer y reaccionar a las intenciones ocultas antes de que se materialicen.</p>
+          <div className="my-10 clear-both overflow-hidden">
+            <figure className="float-none md:float-left w-full md:w-64 mb-6 md:mb-4 mr-0 md:mr-8 group relative">
+              <div className="w-full aspect-square overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://posgradosalamanca.lat/wp-content/uploads/principios-de-la-neurociencia.jpg" alt="Neurociencia" className="w-full h-full object-cover grayscale opacity-70 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-[1.02]" />
+              </div>
+            </figure>
+            <p>Para explicar las asombrosas capacidades intuitivas de los felinos desde un marco no materialista, es imprescindible recurrir a la obra del biólogo de la Universidad de Cambridge, el Dr. Rupert Sheldrake. En su riguroso trabajo, Sheldrake desafía el dogma mecanicista a través de la hipótesis de la Resonancia Mórfica.</p>
+            <p>Sheldrake postula que las mentes de los seres vivos operan como "campos mórficos" que se extienden espacialmente hacia el entorno. Cuando dos seres desarrollan un vínculo emocional y empático profundo, sus campos mórficos se entrelazan, permitiendo la transmisión instantánea de información a distancia. En el contexto del esoterismo, esta validación científica subraya cómo el gato funciona como una extensión perisensorial de la conciencia del mago, capaz de leer y reaccionar a las intenciones ocultas antes de que se materialicen.</p>
+          </div>
 
           <h4>4. El Biocampo Felino y la Transmutación Electromagnética</h4>
           <p>La perspectiva de la sanación cuántica propone que los gatos operan con una carga eléctrica natural inversa a la de los agentes estresantes del ambiente humano. Así como las plantas absorben CO2 para transmutarlo en oxígeno, el felino actuaría como un catalizador biológico que absorbe "energía caótica" del ambiente. Mediante el efecto piezoeléctrico combinado con su ronroneo, el gato desintegra acumulaciones de estrés estático, anclando (earthing) la energía errática y restaurando el equilibrio vibracional del espacio.</p>
+          <figure className="my-12 group">
+            <div className="w-full h-64 md:h-80 overflow-hidden bg-[#0a0a0a] border border-white/5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/A3KEHCIOPNDPFIGT65HYE4V7ZE.jpg" alt="Veterinaria Física" className="w-full h-full object-cover grayscale opacity-60 transition-all duration-1000 group-hover:grayscale-[0.3] group-hover:opacity-100 group-hover:scale-105" />
+            </div>
+            <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+              <p className="font-mono text-[10px] text-[#8A8881] tracking-widest uppercase">APLICACIÓN TERAPÉUTICA</p>
+              <p className="font-serif text-sm text-[#c4c2bc] italic">Evidencia empírica en el impacto homeostático del vínculo humano-animal.</p>
+            </figcaption>
+          </figure>
 
-          <h3>Relación Práctica entre el Gato y el Mago Iniciático</h3>
-          <p>Una vez desglosados los fundamentos científicos, es imperativo analizar la dinámica operativa. En las sendas iniciáticas contemporáneas, la relación no se basa en el vasallaje, sino en una simbiosis voluntaria transdimensional.</p>
+          <div className="my-16 clear-both overflow-hidden">
+            <figure className="float-none md:float-right w-full md:w-64 mb-6 md:mb-4 ml-0 md:ml-8 group relative mt-4 md:-mt-8">
+              <div className="w-full aspect-[3/4] overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.reprodart.com/kunst/english_school_17th_century_after/ideal_figure_of_hermes_trismeg_hi.jpg" alt="Hermes Trismegisto" className="w-full h-full object-cover grayscale opacity-70 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105" />
+              </div>
+            </figure>
+            <h3>Relación Práctica entre el Gato y el Mago Iniciático</h3>
+            <p>Una vez desglosados los fundamentos científicos, es imperativo analizar la dinámica operativa. En las sendas iniciáticas contemporáneas, la relación no se basa en el vasallaje, sino en una simbiosis voluntaria transdimensional.</p>
           
           <h4>El Guardián del Umbral y el Ancla del Viaje Astral</h4>
           <p>El currículo del mago iniciático implica la inducción de estados de trance profundo. Durante estos procesos de desplazamiento extracorpóreo, el vehículo físico queda inerte. La función del gato es la de un centinela electromagnético. Debido a su visión UV y radar geomagnético, detecta intrusiones sutiles en la habitación. En momentos de peligro metafísico, el gato actuará para interrumpir súbitamente el trance del mago, sirviendo de ancla de emergencia hacia la vigilia física.</p>
@@ -198,6 +223,13 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
             <li><strong>Garras (Mudadas):</strong> Representan defensa letal. Se entierran en ingredientes para hechizos de defensa agresiva y ataduras.</li>
             <li><strong>Pelaje:</strong> Se quema para producir negro de humo empleado como tinta ritual poderosa para el trazado de sigilos y talismanes.</li>
           </ul>
+
+          <figure className="my-16 group">
+            <div className="w-full h-56 md:h-72 overflow-hidden bg-[#0a0a0a] border border-white/5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://static.dw.com/image/74939776_906.jpg" alt="Iconografía Egipcia Felina" className="w-full h-full object-cover object-top grayscale opacity-50 transition-all duration-[2s] group-hover:grayscale-0 group-hover:opacity-100 group-hover:object-center" />
+            </div>
+          </figure>
 
           <h4>2. Correspondencias Esotéricas por Fenotipo y Coloración</h4>
           <div className="overflow-x-auto my-8">
