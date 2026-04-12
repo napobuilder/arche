@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 import { Lock, Unlock, ArrowLeft, Hexagon } from 'lucide-react'
 import { getInvestigationBySlug, getAllSlugs } from '@/data/investigations'
+import Paywall from '@/components/Paywall'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -42,7 +44,7 @@ export function generateStaticParams() {
 }
 
 // ── CONTENIDO DEL ARTÍCULO 01: GATOS ──────────────────────────────────────
-function ArticuloGatos() {
+function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
   return (
     <>
       {/* Firma */}
@@ -148,25 +150,27 @@ function ArticuloGatos() {
         <li><strong>100 a 150 Hz:</strong> Actúa como un potente mecanismo analgésico y antiinflamatorio.</li>
       </ul>
 
-      {/* ── PAYWALL ── */}
-      <div className="relative mt-12 pt-32 clear-both">
-        <div className="absolute top-0 left-0 w-full h-48 bg-gradient-to-b from-transparent via-[#050505]/90 to-[#050505] pointer-events-none" />
-        <div className="relative z-10 border border-white/5 bg-[#0a0a0a]/80 backdrop-blur-md p-8 md:p-12 flex flex-col items-center text-center shadow-[0_0_50px_rgba(139,92,246,0.03)] rounded-sm">
-          <Unlock className="w-6 h-6 text-purple-400/50 mb-6" />
-          <h3 className="font-serif text-3xl mb-4 text-[#E8E6E1] mt-0">Archivo Premium</h3>
-          <p className="font-mono text-[10px] text-[#8A8881] tracking-widest leading-loose mb-8 max-w-sm">
-            EL ESTUDIO COMPLETO INCLUYENDO &quot;MAGNETORRECEPCIÓN Y VISIÓN ULTRAVIOLETA&quot;, &quot;CAMPOS MÓRFICOS&quot; Y LA &quot;GUÍA DE MAGIA SIMPÁTICA APLICADA&quot; ESTÁ RESERVADO PARA MIEMBROS.
-          </p>
-          <div className="flex flex-col gap-4 w-full sm:w-auto">
-            <button className="bg-[#E8E6E1] text-[#050505] font-mono text-[10px] tracking-widest px-12 py-4 hover:bg-white transition-all duration-300">
-              DESBLOQUEAR — $4.99
-            </button>
-            <button className="text-[#8A8881] hover:text-white font-mono text-[10px] tracking-widest px-12 py-4 transition-colors border border-white/5 hover:border-white/20">
-              YA SOY MIEMBRO — INICIAR SESIÓN
-            </button>
+      {/* ── PAYWALL o CONTENIDO DESBLOQUEADO ── */}
+      {!isUnlocked ? (
+        <Paywall 
+          checkoutUrl="https://archefoundation.lemonsqueezy.com/checkout/buy/d0b36218-6191-4643-9421-4f6fead3aa18" 
+          slug="gatos-magia-neurociencia" 
+        />
+      ) : (
+        <>
+          <h3 className="mt-16 text-purple-400">✅ Archivo Premium Desbloqueado</h3>
+          
+          <h4>2. Magnetorrecepción y Visión Ultravioleta</h4>
+          <p>Un lector verificado ahora puede ver todo este contenido. Investigaciones recientes han comprobado que la familia <i>Felidae</i> posee una estructura ocular adaptada para percibir espectros de luz ultravioleta que son invisibles e impenetrables para el ojo humano. Esta adaptación biológica podría explicar científicamente su supuesta habilidad para interactuar con apariciones o entidades descritas en la literatura oculta como "luces astrales".</p>
+          
+          <p>Además, sus cuerpos funcionan como antenas geomagnéticas calibradas. Esto los ancla neurológicamente a la Tierra de maneras que apenas comenzamos a entender en laboratorios de sensibilidad cuántica.</p>
+          
+          <div className="my-12 py-8 border-y border-white/10 text-center">
+            <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
+            <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase">HAS LLEGADO AL FINAL DEL MANUSCRITO INICIÁTICO</p>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   )
 }
@@ -194,6 +198,11 @@ export default async function InvestigacionPage({ params }: Props) {
   const { slug } = await params
   const paper = getInvestigationBySlug(slug)
   if (!paper) notFound()
+
+  // 🍪 Extraemos la galleta de seguridad
+  const cookieStore = await cookies()
+  const hasAccessCookie = cookieStore.get(`arche_unlocked_${slug}`)
+  const isUnlocked = !!hasAccessCookie?.value
 
   return (
     <main className="relative w-full min-h-screen pb-32 bg-[#050505]">
@@ -257,8 +266,8 @@ export default async function InvestigacionPage({ params }: Props) {
 
       {/* Contenido */}
       <div className="relative w-full px-8 md:px-0 max-w-2xl mx-auto font-serif text-lg md:text-xl leading-relaxed text-[#c4c2bc] article-content">
-        {paper.slug === 'gatos-magia-ocultismo' && <ArticuloGatos />}
-        {paper.slug !== 'gatos-magia-ocultismo' && paper.access === 'public' && (
+        {paper.slug === 'gatos-magia-neurociencia' && <ArticuloGatos isUnlocked={isUnlocked} />}
+        {paper.slug !== 'gatos-magia-neurociencia' && paper.access === 'public' && (
           <ArticuloPublico desc={paper.shortDesc} />
         )}
         {paper.access === 'locked' && (

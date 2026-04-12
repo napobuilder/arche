@@ -19,15 +19,15 @@ export interface Investigation {
 export const investigations: Investigation[] = [
   {
     id: '01',
-    slug: 'gatos-magia-ocultismo',
+    slug: 'gatos-magia-neurociencia',
     date: '12.04.2026',
     type: 'INVESTIGACIÓN PROFUNDA',
     access: 'partial',
-    title: 'Gatos, Magia y Ocultismo',
+    title: 'Gatos, Magia y Neurociencia',
     shortDesc: 'Un Análisis Histórico, Filosófico y Científico de la Simbiosis Felino-Iniciática.',
     heroImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1200&auto=format&fit=crop',
     seo: {
-      title: 'Gatos, Magia y Ocultismo: La Simbiosis Felino-Iniciática | Arché',
+      title: 'Gatos, Magia y Neurociencia: La Simbiosis Felino-Iniciática | Arché',
       description: 'Un análisis histórico, filosófico y científico de la relación entre los felinos y las tradiciones esotéricas. Desde el antiguo Egipto hasta la bioacústica moderna del ronroneo.',
       keywords: [
         'gatos magia ocultismo', 'felinos esoterica', 'bastet egipto', 'ronroneo frecuencia sanación',
