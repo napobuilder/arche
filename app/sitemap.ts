@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { investigations } from '@/data/investigations'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://arche.netlify.app'
+  const baseUrl = 'https://proyectoarche.com'
   
   const investigationUrls = investigations.map((paper) => ({
     url: `${baseUrl}/investigaciones/${paper.slug}`,

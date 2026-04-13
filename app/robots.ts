@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://arche.netlify.app/sitemap.xml',
+    sitemap: 'https://proyectoarche.com/sitemap.xml',
   }
 }

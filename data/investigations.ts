@@ -18,10 +18,25 @@ export interface Investigation {
 
 export const investigations: Investigation[] = [
   {
+    id: '05',
+    slug: 'neurociencia-de-la-trascendencia',
+    date: '12.04.2026',
+    type: 'PAPER CURADO',
+    access: 'public',
+    title: 'La Neurociencia de la Trascendencia',
+    shortDesc: 'Una revisión cualitativa sobre cómo las prácticas espirituales y religiosas impactan biológicamente la arquitectura del cerebro humano.',
+    heroImage: '/neuroarte.jpg',
+    seo: {
+      title: 'La Neurociencia de la Trascendencia: Bases Biológicas | Arché',
+      description: 'Una profunda exploración de las bases biológicas de las experiencias religiosas y la activación de la mente mística innata en el cerebro.',
+      keywords: ['Neurociencia', 'Espiritualidad', 'Materia Gris Periacueductal', 'Trascendencia', 'Núcleo Accumbens', 'Éxtasis Místico']
+    }
+  },
+  {
     id: '04',
     slug: 'tdah-y-telepatia-medicacion',
     date: '12.04.2026',
-    type: 'NEUROBIOLOGÍA INICIÁTICA',
+    type: 'NEUROBIOLOGÍA',
     access: 'public',
     title: 'TDAH y Telepatía: La Arquitectura Oculta de la Intuición y el Efecto de la Medicación',
     shortDesc: '¿Es el TDAH un motor predictivo anómalo? Un análisis sobre la neurodivergencia, la clarividencia y cómo la atomoxetina afecta las simulaciones mentales compartidas.',

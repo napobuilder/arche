@@ -10,7 +10,7 @@ export default function Footer() {
       </div>
 
       <div className="font-mono text-[10px] text-[#8A8881] tracking-widest text-center">
-        © 2026 FUNDACIÓN PARA LA INVESTIGACIÓN DE LA CONSCIENCIA.
+        © 2026 INSTITUTO DE INVESTIGACIÓN DE LA CONSCIENCIA.
       </div>
 
       <div className="flex gap-6 font-mono text-[10px] text-[#8A8881]">

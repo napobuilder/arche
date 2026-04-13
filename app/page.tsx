@@ -55,7 +55,7 @@ export default function HomePage() {
           >
             <div className="font-mono text-xs text-[#8A8881] mb-4 md:mb-6 flex items-center gap-4">
               <span className="w-8 h-[1px] bg-[#8A8881]" />
-              <span>FUNDACIÓN DE INVESTIGACIÓN</span>
+              <span>INSTITUTO DE INVESTIGACIÓN</span>
             </div>
 
             <h1 className="font-serif text-5xl md:text-7xl xl:text-8xl leading-[1.05] mb-6 font-light shrink-0">

@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Hexagon, Volume2, VolumeX, Menu } from 'lucide-react'
+import { useSoundscape } from '@/components/SoundscapeProvider'
 
 export default function Navbar() {
   const [scrollY, setScrollY] = useState(0)
-  const [audioEnabled, setAudioEnabled] = useState(false)
+  const { audioEnabled, toggleAudio } = useSoundscape()
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
@@ -31,7 +32,6 @@ export default function Navbar() {
 
       {/* Nav Links */}
       <div className="hidden md:flex gap-8 font-mono text-xs tracking-widest text-[#8A8881]">
-        <Link href="/#vision" className="hover:text-[#E8E6E1] transition-colors">VISIÓN</Link>
         <Link href="/investigaciones" className="hover:text-[#E8E6E1] transition-colors">ARCHIVO</Link>
         <Link href="/manifiesto" className="hover:text-[#E8E6E1] transition-colors">MANIFIESTO</Link>
       </div>
@@ -39,7 +39,7 @@ export default function Navbar() {
       {/* Actions */}
       <div className="flex items-center gap-6">
         <button
-          onClick={() => setAudioEnabled(!audioEnabled)}
+          onClick={toggleAudio}
           className="flex items-center gap-2 font-mono text-[10px] text-[#8A8881] hover:text-[#E8E6E1] transition-colors"
         >
           {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}

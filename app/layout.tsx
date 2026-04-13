@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Space_Mono } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { SoundscapeProvider } from '@/components/SoundscapeProvider'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -20,22 +21,22 @@ const spaceMono = Space_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://arche.netlify.app'),
+  metadataBase: new URL('https://proyectoarche.com'),
   title: {
     template: '%s | Arché',
-    default: 'Arché — Fundación para la Investigación de la Consciencia',
+    default: 'Arché — Instituto para la Investigación de la Consciencia',
   },
   description:
     'Un puente riguroso entre la investigación de vanguardia y el misterio humano. Exploramos la neurociencia, el esoterismo, la consciencia y los fenómenos atípicos que la ciencia convencional suele ignorar.',
   keywords: [
     'investigación consciencia', 'esoterismo científico', 'neurociencias y meditación',
     'ocultismo', 'masones ciencia', 'rosacruces', 'fenómenos atípicos', 'ciencias ocultas',
-    'estados alterados consciencia', 'misterio humano', 'hermético', 'fundación investigación'
+    'estados alterados consciencia', 'misterio humano', 'hermético', 'instituto investigación'
   ],
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    siteName: 'Arché — Fundación de Investigación de la Consciencia',
+    siteName: 'Arché — Instituto de Investigación de la Consciencia',
   },
   twitter: {
     card: 'summary_large_image',
@@ -55,9 +56,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${cormorant.variable} ${spaceMono.variable}`}>
       <body className="bg-[#050505] text-[#E8E6E1] selection:bg-[#2C4A3B] selection:text-white overflow-x-hidden">
-        <Navbar />
-        {children}
-        <Footer />
+        <SoundscapeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </SoundscapeProvider>
       </body>
     </html>
   )

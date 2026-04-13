@@ -5,10 +5,10 @@ import { investigations } from '@/data/investigations'
 export const metadata: Metadata = {
   title: 'Archivo de Investigaciones',
   description:
-    'Exploración profunda de consciencia, esoterismo, neurociencias y fenómenos atípicos. Ensayos, papers y registros de laboratorio de la Fundación Arché.',
+    'Exploración profunda de consciencia, esoterismo, neurociencias y fenómenos atípicos. Ensayos, papers y registros de laboratorio del Instituto Arché.',
   keywords: [
     'investigaciones consciencia', 'archivo esoterismo', 'papers neurociencias meditación',
-    'ensayos ocultismo ciencia', 'fundación arché investigaciones',
+    'ensayos ocultismo ciencia', 'instituto arché investigaciones',
   ],
 }
 
@@ -19,7 +19,7 @@ export default function InvestigacionesPage() {
       <div className="mb-24">
         <div className="font-mono text-xs text-[#8A8881] mb-6 flex items-center gap-4">
           <span className="w-8 h-[1px] bg-[#8A8881]" />
-          <span>FUNDACIÓN ARCHÉ</span>
+          <span>INSTITUTO ARCHÉ</span>
         </div>
         <h1 className="font-serif text-5xl md:text-7xl font-light leading-tight text-[#E8E6E1]">
           Archivo <br />
