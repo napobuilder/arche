@@ -558,8 +558,8 @@ function ArticuloTrascendencia() {
           </p>
         </div>
         <figure className="order-1 md:order-2 group relative">
-          <div className="w-full aspect-square overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
-            <img src="/meditacion-trance.webp" alt="Actividad Neurobiológica" className="w-full h-full object-cover grayscale opacity-60 transition-all duration-[2s] group-hover:grayscale-[0.3] group-hover:opacity-100 group-hover:scale-105" />
+          <div className="w-full overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+            <img src="/meditacion-trance.webp" alt="Actividad Neurobiológica" className="w-full h-auto object-cover grayscale opacity-60 transition-all duration-[2s] group-hover:grayscale-[0.3] group-hover:opacity-100 group-hover:scale-105" />
           </div>
           <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
             <p className="font-mono text-[10px] text-[#8A8881] tracking-widest uppercase">EVIDENCIA TOMOGRÁFICA</p>
