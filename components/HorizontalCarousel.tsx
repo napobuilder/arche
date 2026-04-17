@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Lock, Hexagon, ArrowRight } from 'lucide-react'
 import { Investigation } from '@/data/investigations'
@@ -14,12 +14,32 @@ export default function HorizontalCarousel({ papers }: Props) {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [isNudging, setIsNudging] = useState(false)
+
+  useEffect(() => {
+    // Pequeño "nudge" inicial para mostrar que se desliza
+    const timer = setTimeout(() => {
+      if (!hasScrolled && scrollRef.current) {
+        scrollRef.current.scrollBy({ left: 40, behavior: 'smooth' })
+        setTimeout(() => {
+          if (scrollRef.current) scrollRef.current.scrollBy({ left: -40, behavior: 'smooth' })
+        }, 600)
+      }
+    }, 1200)
+    return () => clearTimeout(timer)
+  }, [hasScrolled])
 
   const updateScrollState = useCallback(() => {
     if (!scrollRef.current) return
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
     setCanScrollLeft(scrollLeft > 10)
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    
+    // Calcular progreso (0 a 100)
+    const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100
+    setScrollProgress(progress)
+
     if (scrollLeft > 20) setHasScrolled(true)
   }, [])
 
@@ -53,7 +73,7 @@ export default function HorizontalCarousel({ papers }: Props) {
         {/* ── FEATURED CARD (artículo más nuevo) ── */}
         <Link
           href={`/investigaciones/${featured.slug}`}
-          className="shrink-0 w-[85vw] sm:w-[420px] md:w-[520px] flex flex-col group cursor-pointer"
+          className="shrink-0 w-[78vw] sm:w-[420px] md:w-[520px] flex flex-col group cursor-pointer"
           style={{ scrollSnapAlign: 'start' }}
         >
           {/* Imagen siempre nítida y a color */}
@@ -80,17 +100,6 @@ export default function HorizontalCarousel({ papers }: Props) {
               className="w-full h-full object-cover opacity-90 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent" />
-            
-            {/* Indicador sutil de scroll lateral (solo mobile) */}
-            <div 
-              className={`md:hidden absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-opacity duration-700 ${
-                hasScrolled ? 'opacity-0' : 'opacity-100'
-              }`}
-            >
-              <div className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center animate-[swipe_1.5s_ease-in-out_infinite]">
-                <ChevronRight className="w-5 h-5 text-purple-300" />
-              </div>
-            </div>
           </div>
 
           {/* Meta */}
@@ -128,7 +137,7 @@ export default function HorizontalCarousel({ papers }: Props) {
           <Link
             key={paper.id}
             href={`/investigaciones/${paper.slug}`}
-            className="shrink-0 w-[72vw] sm:w-[260px] md:w-[300px] flex flex-col group cursor-pointer"
+            className="shrink-0 w-[68vw] sm:w-[260px] md:w-[300px] flex flex-col group cursor-pointer"
             style={{ scrollSnapAlign: 'start' }}
           >
             <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#0f0f0f]">
@@ -188,16 +197,26 @@ export default function HorizontalCarousel({ papers }: Props) {
         </Link>
       </div>
 
-      {/* ── SWIPE HINT (solo mobile, desaparece al hacer scroll) ── */}
-      <div
-        className={`md:hidden flex items-center justify-center gap-2 mt-1 transition-all duration-500 ${
-          hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
-      >
-        <span className="font-mono text-[9px] tracking-widest text-[#8A8881]/40 uppercase">Desliza para explorar</span>
-        <div className="flex items-center gap-0.5">
-          <ChevronRight className="w-3 h-3 text-[#8A8881]/30 animate-[swipe_1.2s_ease-in-out_infinite]" />
-          <ChevronRight className="w-3 h-3 text-[#8A8881]/20 animate-[swipe_1.2s_ease-in-out_infinite_0.15s]" />
+      {/* ── SWIPE HINT & PROGRESS BAR ── */}
+      <div className="md:hidden mt-4 flex flex-col items-center gap-3">
+        {/* Progress Bar Container */}
+        <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden">
+          <div 
+            className="absolute left-0 top-0 h-full bg-purple-500/60 transition-all duration-150 ease-out"
+            style={{ width: `${Math.max(5, scrollProgress)}%` }}
+          />
+        </div>
+        
+        <div
+          className={`flex items-center justify-center gap-2 transition-all duration-700 ${
+            hasScrolled ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 translate-y-0'
+          }`}
+        >
+          <span className="font-mono text-[8px] tracking-[0.2em] text-[#8A8881]/40 uppercase">Desliza el archivo</span>
+          <div className="flex items-center gap-0.5">
+            <ChevronRight className="w-2.5 h-2.5 text-[#8A8881]/30 animate-[swipe_1.5s_ease-in-out_infinite]" />
+            <ChevronRight className="w-2.5 h-2.5 text-[#8A8881]/20 animate-[swipe_1.5s_ease-in-out_infinite_0.15s]" />
+          </div>
         </div>
       </div>
 
