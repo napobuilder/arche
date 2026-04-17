@@ -44,6 +44,18 @@ export default function PaperCard({ paper }: PaperCardProps) {
         <p className="font-serif text-[#8A8881] leading-relaxed text-sm line-clamp-3">
           {paper.shortDesc}
         </p>
+        {paper.tags && paper.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">
+            {paper.tags.slice(0, 4).map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-[9px] tracking-wide text-[#8A8881]/60 border border-white/5 group-hover:border-purple-500/20 group-hover:text-purple-300/60 px-2 py-0.5 rounded-sm transition-all duration-500"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Link>
   )

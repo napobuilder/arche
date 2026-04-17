@@ -6,6 +6,8 @@ import { Lock, Unlock, ArrowLeft, Hexagon } from 'lucide-react'
 import { getInvestigationBySlug, getAllSlugs } from '@/data/investigations'
 import Paywall from '@/components/Paywall'
 
+const BASE_URL = 'https://proyectoarche.com'
+
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -16,26 +18,90 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const paper = getInvestigationBySlug(slug)
   if (!paper) return { title: 'No encontrado' }
 
+  const canonicalUrl = `${BASE_URL}/investigaciones/${paper.slug}`
+  // Fusionar keywords explícitas + tags para máxima cobertura semántica
+  const allKeywords = Array.from(new Set([...paper.seo.keywords, ...paper.tags]))
+
   return {
     title: paper.seo.title,
     description: paper.seo.description,
-    keywords: paper.seo.keywords,
+    keywords: allKeywords,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: paper.seo.title,
       description: paper.seo.description,
-      images: [{ url: paper.heroImage, width: 1200, height: 630, alt: paper.title }],
+      url: canonicalUrl,
+      images: [
+        {
+          url: `${BASE_URL}${paper.heroImage}`,
+          width: 1200,
+          height: 630,
+          alt: paper.title,
+        },
+      ],
       type: 'article',
       publishedTime: paper.date,
       authors: ['Napoleon Baca'],
       siteName: 'Arché — Instituto de Investigación de la Consciencia',
+      tags: paper.tags,
     },
     twitter: {
       card: 'summary_large_image',
       title: paper.seo.title,
       description: paper.seo.description,
-      images: [paper.heroImage],
+      images: [`${BASE_URL}${paper.heroImage}`],
     },
   }
+}
+
+// ── JSON-LD STRUCTURED DATA (Schema.org Article) ───────────────────────────
+function ArticleJsonLd({ slug }: { slug: string }) {
+  const paper = getInvestigationBySlug(slug)
+  if (!paper) return null
+
+  const canonicalUrl = `${BASE_URL}/investigaciones/${paper.slug}`
+  const allKeywords = [...paper.seo.keywords, ...paper.tags].join(', ')
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: paper.title,
+    description: paper.seo.description,
+    image: `${BASE_URL}${paper.heroImage}`,
+    url: canonicalUrl,
+    author: {
+      '@type': 'Person',
+      name: 'Napoleon Baca',
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Instituto Arché',
+      url: BASE_URL,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${BASE_URL}/favicon.ico`,
+      },
+    },
+    datePublished: paper.date,
+    dateModified: paper.date,
+    keywords: allKeywords,
+    articleSection: paper.type,
+    inLanguage: 'es',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
 }
 
 // ── RUTAS ESTÁTICAS ────────────────────────────────────────────────────────
@@ -392,7 +458,247 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
   )
 }
 
-// ── CONTENIDO DEL ARTÍCULO 04: TDAH ───────────────────────────────────────
+// ── CONTENIDO DEL ARTÍCULO 05: GRINBERG ─────────────────────────────────────
+function ArticuloGrinberg() {
+  return (
+    <>
+      {/* Firma */}
+      <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
+        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+          <Hexagon className="w-5 h-5 text-purple-400/50" />
+        </div>
+        <div>
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
+          <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+        </div>
+      </div>
+
+      <p className="mb-12 text-2xl md:text-3xl text-[#E8E6E1] font-light italic border-l-2 border-purple-500/30 pl-8 leading-snug">
+        Una evaluación sin concesiones de si la Teoría Sintérgica de Grinberg sobrevive al escrutinio de la física cuántica, la neurobiología y la filosofía de la conciencia modernas.
+      </p>
+
+      <p>El estudio de la conciencia ha transitado durante las últimas décadas desde los márgenes de la especulación filosófica hacia el centro neurálgico de la física teórica y la biología cuántica. Históricamente, el paradigma materialista clásico nos ha dicho que la experiencia consciente es un simple accidente: un epifenómeno de la complejidad de nuestro cerebro confinado a la bóveda craneal.</p>
+
+      <p>En los últimos años, la figura del neurofisiólogo mexicano Dr. Jacobo Grinberg-Zylberbaum ha cobrado una inmensa popularidad. Su misteriosa desaparición y sus fascinantes postulados sobre cómo el cerebro co-crea la realidad han capturado la imaginación del público. Pero en el Instituto Arché, no nos conformamos con el misticismo o el fanatismo ciego; buscamos cruzar estos conceptos con el rigor de la ciencia.</p>
+
+      <h3>Glosario Arché: Herramientas para la Mente Curiosa</h3>
+
+      <div className="my-12 clear-both overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/grinberg-lattice.png"
+          alt="La Látice"
+          className="float-none md:float-right w-full md:w-72 h-auto ml-0 md:ml-8 mb-6 md:mb-4 opacity-75 border border-white/10 rounded-sm hover:opacity-100 transition-all duration-700"
+        />
+        <div className="space-y-5 text-base">
+          {[
+            { term: 'Lattice (Látice)', def: 'La estructura fundamental del espacio-tiempo. Una red holográfica e hipercompleja que lo conecta todo; un mar de energía en su estado primordial antes de convertirse en materia.' },
+            { term: 'Campo Neuronal', def: 'La matriz electromagnética que se crea cuando millones de neuronas se sincronizan. Interactúa directamente con la Látice del universo.' },
+            { term: 'Proceso analógico', def: 'La capacidad de experimentar cualitativamente la realidad: sentir dolor, percibir el color rojo o conmoverse con la música.' },
+            { term: 'Potencial Transferido', def: 'Fenómeno donde un cerebro aislado refleja eléctricamente lo que está viendo otro cerebro situado lejos de él, tras establecer un vínculo empático.' },
+            { term: 'Indeterminismo topológico', def: 'La regla de oro de la física cuántica. La realidad subyacente es una nube de probabilidades, y los resultados se definen cuando interviene un observador consciente.' },
+            { term: 'Panpsiquismo moderno', def: 'La perspectiva que propone que la conciencia no es un subproducto del cerebro, sino un atributo fundamental y básico del tejido del universo mismo.' },
+          ].map(({ term, def }) => (
+            <div key={term} className="border-l border-purple-500/20 pl-4">
+              <p className="font-mono text-[11px] text-purple-400/70 tracking-widest uppercase mb-1">{term}</p>
+              <p className="text-[#c4c2bc] text-sm leading-relaxed">{def}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <h3>1. La Ontología de la Teoría Sintérgica de Jacobo Grinberg</h3>
+      <p>Concebida entre los años 70 y 80 en la UNAM, la Teoría Sintérgica propone que la experiencia consciente es el resultado de un proceso hipercomplejo de interacción informacional. Grinberg buscaba formalizar matemáticamente la intuición de que el cerebro humano no crea la conciencia de la nada, sino que sintoniza un campo preexistente.</p>
+
+      <h4>1.1. La Látice y el Concepto de Sintergia</h4>
+      <p>El concepto fundacional es la Látice. La Teoría Sintérgica la postula como un mar holográfico de potencial infinito. Toda forma de materia detectable es simplemente una alteración vibracional o distorsión geométrica de esta Látice. La dicotomía entre materia y conciencia resulta artificial: la conciencia es el primer dato empírico, no la materia.</p>
+
+      <div className="my-8 p-6 bg-[#0a0a0a]/50 border border-white/10 rounded-sm">
+        <h4 className="font-serif text-lg text-[#E8E6E1] mb-4 border-b border-white/10 pb-2 mt-0">Los Tres Parámetros de la Sintergia</h4>
+        <ul className="space-y-3 text-sm text-[#c4c2bc] m-0 p-0 pl-4">
+          <li><strong className="text-purple-400">Coherencia:</strong> Similitud y simetría en la disposición de las partes.</li>
+          <li><strong className="text-purple-400">Densidad Informacional:</strong> Capacidad holográfica donde cada punto contiene la información del todo.</li>
+          <li><strong className="text-purple-400">Frecuencia:</strong> La tasa temporal de oscilación.</li>
+        </ul>
+      </div>
+
+      <h4>1.2. De la Electricidad a la Conciencia</h4>
+
+      <div className="breakout-full h-[45vh] md:h-[60vh] my-20 overflow-hidden group relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/grinberg-hero.png" alt="El Campo Neuronal interactuando con la Látice"
+          className="w-full h-full object-cover object-center grayscale opacity-40 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
+        <div className="absolute bottom-6 left-8 pointer-events-none">
+          <p className="font-mono text-[10px] tracking-widest text-white/50 uppercase">El Campo Neuronal</p>
+          <p className="font-serif text-sm text-white/30 italic">El cerebro como transductor de la realidad implicada</p>
+        </div>
+      </div>
+
+      <p>Cuando el cerebro se activa, sus 12 mil millones de neuronas sincronizadas crean una matriz electromagnética que interactúa con la estructura de la Látice. La información viaja como impulsos bioeléctricos hasta las profundidades del cerebro, donde los neuro-algoritmos unifican la actividad. Sin embargo, la experiencia de <em>sentir</em> no es un algoritmo digital.</p>
+
+      <div className="my-8 p-6 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50 text-sm">
+        <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-2">Error Epistemológico Fundamental</p>
+        <p className="italic text-[#c4c2bc] m-0">&ldquo;Es un error epistemológico común confundir este resultado final con el estímulo primario, asumiendo falsamente que el mundo exterior es una entidad mecánica ajena al observador, cuando de facto, es una <strong>co-creación informacional participativa</strong>.&rdquo;</p>
+      </div>
+
+      <h4>1.3. Validación Empírica: El Potencial Transferido</h4>
+
+      <figure className="my-16 group relative">
+        <div className="w-full h-56 md:h-64 overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm relative flex items-center justify-center">
+          <div className="flex items-center gap-0 w-full max-w-xl px-8">
+            <div className="flex-1 flex flex-col items-center gap-3">
+              <div className="w-16 h-16 rounded-full border border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
+                <Hexagon className="w-8 h-8 text-purple-400/40" />
+              </div>
+              <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+              <p className="font-mono text-[9px] text-purple-400/50 tracking-widest">SUJETO A — ESTÍMULO</p>
+            </div>
+            <div className="w-px h-32 bg-white/5 relative mx-6 flex items-center justify-center">
+              <div className="w-[2px] h-full bg-gradient-to-b from-transparent via-purple-400/80 to-transparent" />
+            </div>
+            <div className="flex-1 flex flex-col items-center gap-3">
+              <div className="w-16 h-16 rounded-full border border-purple-500/30 bg-purple-500/5 flex items-center justify-center">
+                <Hexagon className="w-8 h-8 text-purple-400/40" />
+              </div>
+              <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+              <p className="font-mono text-[9px] text-purple-400/50 tracking-widest">SUJETO B — AISLADO</p>
+            </div>
+          </div>
+          <p className="absolute bottom-4 inset-x-0 text-center font-mono text-[9px] text-white/20 tracking-widest">EEG SINCRONIZADO — SIN CONTACTO FÍSICO</p>
+        </div>
+        <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+          <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">EXPERIMENTO CENTRAL</p>
+          <p className="font-serif text-sm text-[#c4c2bc] italic">El Potencial Transferido: entrelazamiento cerebral publicado en Physics Essays (1994).</p>
+        </figcaption>
+      </figure>
+
+      <p>En 1994, Grinberg publicó en la revista <em>Physics Essays</em> evidencia del &ldquo;Potencial Transferido&rdquo;. En laboratorio, dos sujetos establecían un vínculo empático. Luego se separaban en cámaras aisladas. Al presentar estímulos luminosos a uno, el cerebro del otro sujeto mostraba simultáneamente un patrón electrofisiológico idéntico, sin estímulo físico alguno.</p>
+
+      <h3>2. Correlatos de Rigurosidad: La Física Teórica al Rescate</h3>
+
+      <div className="overflow-x-auto my-8">
+        <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
+          <thead className="text-xs text-[#8A8881] uppercase bg-black/50 border-b border-white/10">
+            <tr>
+              <th className="px-6 py-4 font-mono">Físico / Científico</th>
+              <th className="px-6 py-4 font-mono">Aportación Clave</th>
+              <th className="px-6 py-4 font-mono">Correlato con Grinberg</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5 font-serif">
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">David Bohm</td>
+              <td className="px-6 py-4 italic">Orden Implicado — cosmos como holograma cuántico</td>
+              <td className="px-6 py-4">Es la Látice de Grinberg nombrada con otro lenguaje matemático.</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Henry Stapp</td>
+              <td className="px-6 py-4 italic">Libre albedrío cuántico — Efecto Zeno y voluntad mental</td>
+              <td className="px-6 py-4">El esfuerzo mental estabiliza conexiones neuronales: la mente primaria modula al cerebro, no al revés.</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">Penrose &amp; Hameroff</td>
+              <td className="px-6 py-4 italic">Orch-OR — microtúbulos como antenas cuánticas</td>
+              <td className="px-6 py-4">El momento dipolar de la tubulina protege información cuántica en la biología húmeda.</td>
+            </tr>
+            <tr>
+              <td className="px-6 py-4 font-bold text-[#E8E6E1]">John A. Wheeler</td>
+              <td className="px-6 py-4 italic">&ldquo;It from bit&rdquo; — Universo Participativo</td>
+              <td className="px-6 py-4">Todo objeto físico existe a partir de información inmaterial. El colapso de la realidad lo dicta el observador.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure className="breakout-full h-[40vh] md:h-[55vh] my-20 overflow-hidden group relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/grinberg-lattice.png" alt="Lo macro habitando lo micro"
+          className="w-full h-full object-cover grayscale opacity-35 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-[#050505]/50" />
+        <div className="absolute bottom-6 right-8 text-right pointer-events-none z-10">
+          <p className="font-mono text-[10px] tracking-widest text-white/50 uppercase">Orch-OR / Penrose &amp; Hameroff</p>
+          <p className="font-serif text-sm text-white/30 italic">Lo macro habitando lo micro</p>
+        </div>
+      </figure>
+
+      <h3>3. La Identidad como &ldquo;Disfraz&rdquo; Informacional</h3>
+      <p>Si la conciencia es un campo continuo e indivisible (panpsiquismo moderno), surge el gran enigma: ¿Por qué me siento yo, encerrado en este cuerpo, separado de ti? La neurobiología concluye que la &ldquo;identidad&rdquo; no es el sujeto fundacional del universo, sino un disfraz evolutivo. Una herramienta topológica utilizada por la conciencia primaria para sobrevivir.</p>
+
+      <h4>La Interfaz Multimodal de Donald Hoffman</h4>
+      <p>El científico cognitivo Donald Hoffman ha demostrado matemáticamente que la evolución <em>castiga</em> a las especies que ven la realidad cuántica tal cual es. La evolución prefiere sistemas que ocultan la realidad y muestran una interfaz simplificada para sobrevivir.</p>
+
+      <div className="my-8 p-6 border border-purple-500/10 bg-[#0a0a0a]/50 rounded-sm">
+        <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-3">Analogía de los íconos de escritorio</p>
+        <p className="font-serif text-base text-[#c4c2bc] m-0">Tu percepción tridimensional y tu ego biográfico son los &ldquo;iconos de escritorio&rdquo; de una computadora hipercompleja. Creer que tu &ldquo;yo narrativo&rdquo; es la realidad absoluta es como creer que el disco duro está físicamente lleno de pequeñas carpetitas amarillas de píxeles.</p>
+      </div>
+
+      <h4>El Retraso Temporal y Karl Friston</h4>
+      <p>Karl Friston y el Principio de Minimización de Energía Libre explican que el cerebro siempre está adivinando el futuro inmediato porque tiene un &ldquo;retraso&rdquo; biológico. Al tratar de sincronizarse con el entorno, genera inevitablemente una división ilusoria: el &ldquo;Yo&rdquo; (agencia) vs el &ldquo;No-Yo&rdquo; (el entorno). La identidad es el solenoide biológico limitante para poder jugar el juego de la termodinámica.</p>
+
+      <h3>4. Individualismo Abierto: Los &ldquo;Brazos&rdquo; de la Existencia</h3>
+
+      <figure className="my-16 group">
+        <div className="w-full overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/grinberg-monism.png" alt="El Monismo: Una sola luz, miles de máscaras"
+            className="w-full h-72 md:h-96 object-cover grayscale opacity-50 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105" />
+        </div>
+        <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+          <p className="font-mono text-[10px] text-[#8A8881] tracking-widest uppercase">El Monismo de Campo</p>
+          <p className="font-serif text-sm text-[#c4c2bc] italic">Una única fuente de luz iluminando simultáneamente miles de millones de avatares-casilleros.</p>
+        </figcaption>
+      </figure>
+
+      <p>Si la identidad es una máscara, ¿quién está detrás? El filósofo Daniel Kolak en su teoría del Individualismo Abierto demuestra que, matemáticamente, solo existe un sujeto de experiencia en todo el cosmos.</p>
+      <p>Aunque tengamos distintas memorias y cuerpos, el &ldquo;Sujeto de Sí Mismo&rdquo; —la sensación profunda de &ldquo;yo estoy consciente&rdquo;— es literalmente el mismo principio en todas las mentes.</p>
+
+      <div className="my-8 p-6 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50 text-sm">
+        <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-2">Corolario Ético</p>
+        <p className="italic text-[#c4c2bc] m-0">El Individualismo Abierto destruye el Solipsismo. Al mirar al otro, estás observando a la misma Conciencia Primaria que te habita, asomándose desde una ventana topológica diferente. <strong>Dañar a un tercero no es una metáfora de crueldad; es matemáticamente auto-sadismo.</strong></p>
+      </div>
+
+      <h3>Conclusión del Instituto Arché: La Influencia del Pensamiento</h3>
+      <p>El escrutinio cruzado interdisciplinario derriba definitivamente el dogma de que nuestra conciencia es un accidente bioquímico. El universo es un sistema informacional primario. Nuestro pensamiento tiene una influencia y una gravedad sobre nuestro entorno inmensamente mayor de lo que el paradigma clásico nos hizo creer.</p>
+      <p>La separación que experimentamos no es real; es simplemente una estratagema cibernética. Somos los tentáculos sensoriales con los que el propio universo, disipando la ilusión del vacío, logra por fin tocarse, experimentarse y despertarse a sí mismo.</p>
+
+      <figure className="breakout-full h-[55vh] md:h-[75vh] my-20 overflow-hidden group relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/grinberg-final.png" alt="El observador tocando el universo"
+          className="w-full h-full object-cover grayscale opacity-40 transition-all duration-[3s] ease-out group-hover:grayscale-0 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/80" />
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 pointer-events-none">
+          <p className="font-serif text-lg md:text-2xl text-white/60 italic text-center max-w-lg px-4 group-hover:text-white/90 transition-colors duration-1000">
+            &ldquo;Somos los tentáculos sensoriales con los que el universo logra, por fin, tocarse a sí mismo.&rdquo;
+          </p>
+        </div>
+      </figure>
+
+      <div className="my-16 py-8 border-y border-white/10 text-center">
+        <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
+        <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase">FIN DE LA INVESTIGACIÓN</p>
+      </div>
+
+      <details className="mt-8 mb-16 p-6 border border-white/10 bg-[#0a0a0a]/50 rounded-sm cursor-pointer group">
+        <summary className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase list-none flex justify-between items-center group-hover:text-purple-400 transition-colors">
+          <span>Fuentes y Referencias Académicas (Mostrar / Ocultar)</span>
+          <span className="text-lg leading-none">+</span>
+        </summary>
+        <div className="mt-6 text-sm text-[#8A8881] font-mono leading-relaxed space-y-2 h-64 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10">
+          <p>• Grinberg-Zylberbaum, J. et al. (1994). The Einstein-Podolsky-Rosen Paradox in the Brain. Physics Essays.</p>
+          <p>• Bohm, D. (1980). Wholeness and the Implicate Order. Routledge.</p>
+          <p>• Stapp, H. (2007). Mind, Matter and Quantum Mechanics. Springer.</p>
+          <p>• Penrose, R. &amp; Hameroff, S. (2014). Consciousness in the Universe: Orch OR Theory. Physics of Life Reviews.</p>
+          <p>• Wheeler, J.A. (1990). Information, Physics, Quantum: The Search for Links.</p>
+          <p>• Hoffman, D. (2019). The Case Against Reality. W.W. Norton &amp; Company.</p>
+          <p>• Friston, K. (2010). The free-energy principle: a unified brain theory? Nature Reviews Neuroscience.</p>
+          <p>• Kolak, D. (2004). I Am You: The Metaphysical Foundations for Global Ethics. Springer.</p>
+        </div>
+      </details>
+    </>
+  )
+}
+
 function ArticuloTDAH() {
   return (
     <>
@@ -661,30 +967,8 @@ export default async function InvestigacionPage({ params }: Props) {
   return (
     <main className="relative w-full min-h-screen pb-32 bg-[#050505]">
 
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Article',
-            headline: paper.title,
-            description: paper.seo.description,
-            image: paper.heroImage,
-            datePublished: paper.date,
-            author: {
-              '@type': 'Person',
-              name: 'Napoleon Baca',
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Instituto Arché',
-              logo: { '@type': 'ImageObject', url: 'https://arche.netlify.app/logo.png' },
-            },
-            keywords: paper.seo.keywords.join(', '),
-          }),
-        }}
-      />
+      {/* JSON-LD Structured Data — Schema.org Article */}
+      <ArticleJsonLd slug={slug} />
 
       {/* Hero del artículo */}
       <header className="relative w-full min-h-[70vh] flex flex-col justify-between px-8 md:px-32 pb-16 pt-32">
@@ -725,7 +1009,8 @@ export default async function InvestigacionPage({ params }: Props) {
         {paper.slug === 'gatos-magia-neurociencia' && <ArticuloGatos isUnlocked={isUnlocked} />}
         {paper.slug === 'tdah-y-telepatia-medicacion' && <ArticuloTDAH />}
         {paper.slug === 'neurociencia-de-la-trascendencia' && <ArticuloTrascendencia />}
-        {paper.slug !== 'gatos-magia-neurociencia' && paper.slug !== 'tdah-y-telepatia-medicacion' && paper.slug !== 'neurociencia-de-la-trascendencia' && paper.access === 'public' && (
+        {paper.slug === 'grinberg-teoria-sinteargica' && <ArticuloGrinberg />}
+        {paper.slug !== 'gatos-magia-neurociencia' && paper.slug !== 'tdah-y-telepatia-medicacion' && paper.slug !== 'neurociencia-de-la-trascendencia' && paper.slug !== 'grinberg-teoria-sinteargica' && paper.access === 'public' && (
           <ArticuloPublico desc={paper.shortDesc} />
         )}
         {paper.access === 'locked' && (

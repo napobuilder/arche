@@ -9,6 +9,7 @@ export interface Investigation {
   title: string
   shortDesc: string
   heroImage: string
+  tags: string[]
   seo: {
     title: string
     description: string
@@ -18,6 +19,22 @@ export interface Investigation {
 
 export const investigations: Investigation[] = [
   {
+    id: '04',
+    slug: 'grinberg-teoria-sinteargica',
+    date: '17.04.2026',
+    type: 'ANÁLISIS INTERDISCIPLINARIO',
+    access: 'public',
+    title: 'Más Allá de Jacobo Grinberg: La Teoría Sintérgica bajo la Lupa',
+    shortDesc: 'Una evaluación rigurosa de si la Teoría Sintérgica sobrevive al escrutinio de la física cuántica, la neurociencia y la philosophía de la conciencia modernas.',
+    heroImage: '/grinberg-hero.png',
+    tags: ['Conciencia', 'Física Cuántica', 'Neurociencia', 'Panpsiquismo', 'Filosofía'],
+    seo: {
+      title: 'Jacobo Grinberg y la Teoría Sintérgica: Física Cuántica y Neurociencia | Arché',
+      description: 'Evaluamos la Teoría Sintérgica de Grinberg frente a Bohm, Penrose, Stapp y Wheeler. ¿Es la conciencia un campo cuántico? Un análisis sin concesiones.',
+      keywords: ['Jacobo Grinberg', 'Teoría Sintérgica', 'Látice', 'Campo Neuronal', 'Potencial Transferido', 'Bohm Orden Implicado', 'Orch-OR', 'Panpsiquismo', 'Individualismo Abierto', 'Conciencia Cuántica', 'Física Cuántica Consciencia']
+    }
+  },
+  {
     id: '03',
     slug: 'neurociencia-de-la-trascendencia',
     date: '12.04.2026',
@@ -25,7 +42,8 @@ export const investigations: Investigation[] = [
     access: 'public',
     title: 'La Neurociencia de la Trascendencia',
     shortDesc: 'Una revisión cualitativa sobre cómo las prácticas espirituales y religiosas impactan biológicamente la arquitectura del cerebro humano.',
-    heroImage: '/neuroarte.jpg',
+    heroImage: '/trascendencia.webp',
+    tags: ['Neurociencia', 'Espiritualidad', 'Meditación', 'Trascendencia', 'Biología'],
     seo: {
       title: 'La Neurociencia de la Trascendencia: Bases Biológicas | Arché',
       description: 'Una profunda exploración de las bases biológicas de las experiencias religiosas y la activación de la mente mística innata en el cerebro.',
@@ -40,7 +58,8 @@ export const investigations: Investigation[] = [
     access: 'public',
     title: 'TDAH y Telepatía: La Arquitectura Oculta de la Intuición y el Efecto de la Medicación',
     shortDesc: '¿Es el TDAH un motor predictivo anómalo? Un análisis sobre la neurodivergencia, la clarividencia y cómo la atomoxetina afecta las simulaciones mentales compartidas.',
-    heroImage: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+    heroImage: '/tdah.webp',
+    tags: ['TDAH', 'Neurociencia', 'Parapsicología', 'Intuición', 'Neurodivergencia'],
     seo: {
       title: 'TDAH y Telepatía: La Arquitectura Oculta de la Intuición | Arché',
       description: 'Una investigación rigurosa que conecta el TDAH, el procesamiento predictivo bayesiano y los fenómenos de telepatía, evaluando el impacto de la atomoxetina en la red neuronal por defecto.',
@@ -55,7 +74,8 @@ export const investigations: Investigation[] = [
     access: 'partial',
     title: 'Gatos, Magia y Neurociencia',
     shortDesc: 'Un Análisis Histórico, Filosófico y Científico de la Simbiosis Felino-Iniciática.',
-    heroImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1200&auto=format&fit=crop',
+    heroImage: '/gatonegro.webp',
+    tags: ['Esoterismo', 'Historia', 'Bioacústica', 'Ocultismo', 'Filosofía'],
     seo: {
       title: 'Gatos, Magia y Neurociencia: La Simbiosis Felino-Iniciática | Arché',
       description: 'Un análisis histórico, filosófico y científico de la relación entre los felinos y las tradiciones esotéricas. Desde el antiguo Egipto hasta la bioacústica moderna del ronroneo.',
@@ -74,4 +94,10 @@ export function getInvestigationBySlug(slug: string): Investigation | undefined 
 
 export function getAllSlugs(): string[] {
   return investigations.map((i) => i.slug)
+}
+
+export function getAllTags(): string[] {
+  const tagSet = new Set<string>()
+  investigations.forEach((i) => i.tags.forEach((t) => tagSet.add(t)))
+  return Array.from(tagSet).sort()
 }

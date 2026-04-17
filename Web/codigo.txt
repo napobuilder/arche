@@ -275,7 +275,7 @@ export default function App() {
       access: "partial", 
       title: "Gatos, Magia y Ocultismo",
       desc: "Un Análisis Histórico, Filosófico y Científico de la Simbiosis Felino-Iniciática.",
-      img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1200&auto=format&fit=crop"
+      img: "/gatonegro.webp"
     },
     {
       id: "02",
