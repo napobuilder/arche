@@ -53,10 +53,8 @@ export default function PaperCard({ paper, featured = false }: PaperCardProps) {
     }
 
     if (isTouchDevice) {
-      // Mobile: el IntersectionObserver hace una revelación parcial
-      return inView
-        ? `${base} opacity-70 grayscale-[40%] blur-[3px] duration-[1200ms]`
-        : `${base} opacity-25 grayscale blur-xl duration-[1200ms]`
+      // Mobile: siempre a color, sin blur ni grayscale
+      return `${base} opacity-90 duration-700`
     }
 
     // Desktop: efecto completo en hover

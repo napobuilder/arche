@@ -13,12 +13,14 @@ export default function HorizontalCarousel({ papers }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
+  const [hasScrolled, setHasScrolled] = useState(false)
 
   const updateScrollState = useCallback(() => {
     if (!scrollRef.current) return
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
     setCanScrollLeft(scrollLeft > 10)
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
+    if (scrollLeft > 20) setHasScrolled(true)
   }, [])
 
   const scroll = (dir: 'left' | 'right') => {
@@ -133,7 +135,7 @@ export default function HorizontalCarousel({ papers }: Props) {
               <img
                 src={paper.heroImage}
                 alt={paper.title}
-                className="w-full h-full object-cover opacity-40 blur-md grayscale transition-all duration-700 ease-out group-hover:opacity-100 group-hover:blur-none group-hover:grayscale-0 group-hover:scale-105 motion-reduce:opacity-80 motion-reduce:blur-none motion-reduce:grayscale-0"
+                className="w-full h-full object-cover opacity-90 transition-all duration-700 ease-out group-hover:scale-105 carousel-img"
               />
             </div>
             <div className="flex flex-col gap-2 pt-5">
@@ -173,6 +175,19 @@ export default function HorizontalCarousel({ papers }: Props) {
             Ver Archivo<br />Completo
           </p>
         </Link>
+      </div>
+
+      {/* ── SWIPE HINT (solo mobile, desaparece al hacer scroll) ── */}
+      <div
+        className={`md:hidden flex items-center justify-center gap-2 mt-1 transition-all duration-500 ${
+          hasScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        <span className="font-mono text-[9px] tracking-widest text-[#8A8881]/40 uppercase">Desliza para explorar</span>
+        <div className="flex items-center gap-0.5">
+          <ChevronRight className="w-3 h-3 text-[#8A8881]/30 animate-[swipe_1.2s_ease-in-out_infinite]" />
+          <ChevronRight className="w-3 h-3 text-[#8A8881]/20 animate-[swipe_1.2s_ease-in-out_infinite_0.15s]" />
+        </div>
       </div>
 
       {/* ── ARROW BUTTONS (desktop) ── */}

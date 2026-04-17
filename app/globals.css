@@ -98,3 +98,25 @@ body {
   margin-left: -50vw;
   margin-right: -50vw;
 }
+
+/* Carrusel: blur/grayscale solo en dispositivos con hover (desktop)
+   En mobile (touch) la imagen siempre está a color y nítida          */
+@media (hover: hover) and (pointer: fine) {
+  .carousel-img {
+    opacity: 0.4;
+    filter: blur(8px) grayscale(100%);
+  }
+  .group:hover .carousel-img {
+    opacity: 1;
+    filter: blur(0) grayscale(0);
+  }
+}
+
+/* Respeta prefers-reduced-motion globalmente */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-img {
+    opacity: 0.9 !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
