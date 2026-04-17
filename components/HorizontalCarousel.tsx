@@ -80,6 +80,17 @@ export default function HorizontalCarousel({ papers }: Props) {
               className="w-full h-full object-cover opacity-90 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent" />
+            
+            {/* Indicador sutil de scroll lateral (solo mobile) */}
+            <div 
+              className={`md:hidden absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 transition-opacity duration-700 ${
+                hasScrolled ? 'opacity-0' : 'opacity-100'
+              }`}
+            >
+              <div className="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center animate-[swipe_1.5s_ease-in-out_infinite]">
+                <ChevronRight className="w-5 h-5 text-purple-300" />
+              </div>
+            </div>
           </div>
 
           {/* Meta */}
