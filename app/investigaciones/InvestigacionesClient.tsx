@@ -66,7 +66,6 @@ export default function InvestigacionesClient() {
       {/* ── BARRA DE BÚSQUEDA ── */}
       <div className="mb-6">
         <div className="relative group">
-          {/* Glow de fondo */}
           <div className="absolute -inset-px bg-gradient-to-r from-purple-500/0 via-purple-500/20 to-purple-500/0 opacity-0 group-focus-within:opacity-100 transition-opacity duration-500 blur-sm" />
           <div className="relative flex items-center gap-3 bg-[#0a0a0a] border border-white/10 group-focus-within:border-purple-500/40 transition-all duration-300 px-5 py-4">
             <Search className="w-4 h-4 text-[#8A8881] shrink-0" />
@@ -130,8 +129,12 @@ export default function InvestigacionesClient() {
       {/* ── RESULTADOS ── */}
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filtered.map((paper) => (
-            <PaperCard key={paper.id} paper={paper} />
+          {filtered.map((paper, index) => (
+            <PaperCard
+              key={paper.id}
+              paper={paper}
+              featured={index === 0 && !hasFilters}
+            />
           ))}
         </div>
       ) : (

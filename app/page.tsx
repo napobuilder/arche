@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import PaperCard from '@/components/PaperCard'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { investigations } from '@/data/investigations'
 
-// ParticleCanvas solo en cliente (canvas no existe en SSR)
+// Componentes solo-cliente
 const ParticleCanvas = dynamic(() => import('@/components/ParticleCanvas'), { ssr: false })
+const HorizontalCarousel = dynamic(() => import('@/components/HorizontalCarousel'), { ssr: false })
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0)
@@ -17,8 +19,6 @@ export default function HomePage() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const featured = investigations.slice(0, 3)
 
   return (
     <div className="relative w-full min-h-screen">
@@ -113,7 +113,7 @@ export default function HomePage() {
           {/* Flecha scroll */}
           <div className="w-full flex justify-center shrink-0 pointer-events-auto z-20">
             <button
-              onClick={() => document.getElementById('papers')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('archivo')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex flex-col items-center gap-2 opacity-50 cursor-pointer hover:opacity-100 transition-all duration-500 hover:-translate-y-2 bg-transparent border-0"
             >
               <span className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">DESCUBRIR</span>
@@ -125,24 +125,37 @@ export default function HomePage() {
 
       {/* ── ARCHIVO ── */}
       <section
-        id="papers"
+        id="archivo"
         className="relative z-20 w-full mt-[100svh] bg-[#050505] px-8 md:px-24 py-32 border-t border-white/10 shadow-[0_-30px_80px_rgba(0,0,0,1)]"
       >
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-          <h2 className="font-serif text-4xl md:text-5xl font-light text-[#E8E6E1]">
-            Archivo Abierto <br />
-            <span className="text-[#8A8881] italic">Investigaciones</span>
-          </h2>
-          <p className="font-mono text-xs max-w-xs text-[#8A8881] text-justify">
-            PUBLICACIONES RECIENTES, ENSAYOS Y REGISTROS DE LABORATORIO SOBRE LA INTERSECCIÓN ENTRE LA NEUROCIENCIA Y EL MISTICISMO.
-          </p>
+        {/* Header de sección */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div>
+            <div className="font-mono text-xs text-[#8A8881] mb-4 flex items-center gap-4">
+              <span className="w-8 h-[1px] bg-[#8A8881]" />
+              <span>ARCHIVO ABIERTO</span>
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl font-light text-[#E8E6E1]">
+              Investigaciones <br />
+              <span className="text-[#8A8881] italic">Recientes</span>
+            </h2>
+          </div>
+          <div className="flex flex-col items-start md:items-end gap-4">
+            <p className="font-mono text-xs max-w-xs text-[#8A8881] md:text-right">
+              PUBLICACIONES, ENSAYOS Y REGISTROS DE LABORATORIO SOBRE LA INTERSECCIÓN ENTRE LA NEUROCIENCIA Y EL MISTICISMO.
+            </p>
+            <Link
+              href="/investigaciones"
+              className="flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#8A8881] hover:text-[#E8E6E1] border border-white/10 hover:border-purple-500/40 px-5 py-2.5 transition-all duration-300 group/link"
+            >
+              VER TODO EL ARCHIVO
+              <ArrowRight className="w-3 h-3 group-hover/link:translate-x-0.5 transition-transform duration-300" />
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featured.map((paper) => (
-            <PaperCard key={paper.id} paper={paper} />
-          ))}
-        </div>
+        {/* Carrusel horizontal */}
+        <HorizontalCarousel papers={investigations} />
       </section>
     </div>
   )
