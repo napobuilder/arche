@@ -31,7 +31,12 @@ export const investigations: Investigation[] = [
     seo: {
       title: 'Jacobo Grinberg y la Teoría Sintérgica: Física Cuántica y Neurociencia | Arché',
       description: 'Evaluamos la Teoría Sintérgica de Grinberg frente a Bohm, Penrose, Stapp y Wheeler. ¿Es la conciencia un campo cuántico? Un análisis sin concesiones.',
-      keywords: ['Jacobo Grinberg', 'Teoría Sintérgica', 'Látice', 'Campo Neuronal', 'Potencial Transferido', 'Bohm Orden Implicado', 'Orch-OR', 'Panpsiquismo', 'Individualismo Abierto', 'Conciencia Cuántica', 'Física Cuántica Consciencia']
+      keywords: [
+        'jacobo grinberg', 'teoria sintergica', 'jacobo grinberg libros y biografia', 'que es la latice grinberg',
+        'campo neuronal y sinergia', 'potencial transferido experimento', 'fisica cuantica y conciencia',
+        'roger penrose orch or', 'david bohm orden implicado', 'panpsiquismo moderno', 'chamanismo mexicano pachita',
+        'meditacion autoalusiva', 'neurofisiologia de la conciencia', 'conciencia no local cientifica'
+      ]
     }
   },
   {
@@ -45,9 +50,14 @@ export const investigations: Investigation[] = [
     heroImage: '/trascendencia.webp',
     tags: ['Neurociencia', 'Espiritualidad', 'Meditación', 'Trascendencia', 'Biología'],
     seo: {
-      title: 'La Neurociencia de la Trascendencia: Bases Biológicas | Arché',
-      description: 'Una profunda exploración de las bases biológicas de las experiencias religiosas y la activación de la mente mística innata en el cerebro.',
-      keywords: ['Neurociencia', 'Espiritualidad', 'Materia Gris Periacueductal', 'Trascendencia', 'Núcleo Accumbens', 'Éxtasis Místico']
+      title: 'La Neurociencia de la Trascendencia: Bases Biológicas y Místicas | Arché',
+      description: 'Una profunda exploración de las bases biológicas de las experiencias religiosas, la meditación y la activación de la circuitería mística en el cerebro.',
+      keywords: [
+        'neurociencia y espiritualidad', 'que pasa en el cerebro al meditar', 'neurobiologia de la meditacion',
+        'materia gris periacueductal', 'experiencias misticas cerebro', 'extasis mistico neurociencia',
+        'dopamina y oxitocina en meditacion', 'oracion y cerebro humano', 'neuroplasticidad contemplativa',
+        'estados alterados de consciencia', 'bases biologicas de la religion'
+      ]
     }
   },
   {
@@ -61,9 +71,14 @@ export const investigations: Investigation[] = [
     heroImage: '/tdah.webp',
     tags: ['TDAH', 'Neurociencia', 'Parapsicología', 'Intuición', 'Neurodivergencia'],
     seo: {
-      title: 'TDAH y "Telepatía": La Arquitectura Oculta de la Intuición | Arché',
-      description: 'Una investigación rigurosa que conecta el TDAH, el procesamiento predictivo bayesiano y los fenómenos de telepatía, evaluando el impacto de la atomoxetina en la red neuronal por defecto.',
-      keywords: ['TDAH', 'Telepatía', 'Neurociencia', 'Intuición', 'Atomoxetina', 'Neurodivergencia', 'Parapsicología', 'Rupert Sheldrake', 'Red Neuronal por Defecto']
+      title: 'TDAH e Intuición "Telepática": Neurobiología, Medicación y Percepción | Arché',
+      description: 'Una investigación rigurosa sobre TDAH, codificación predictiva bayesiana, filtrado sensorial poroso y telepatía, analizando el efecto de la atomoxetina y meditación.',
+      keywords: [
+        'tdah e intuicion', 'tdah telepatia', 'terminar frases de los demas tdah', 'filtrado sensorial sensory gating',
+        'atomoxetina e intuicion', 'neurodivergencia y espiritualidad', 'red neuronal por defecto dmn tdah',
+        'codificacion predictiva cerebro', 'centro rhine telepatia estadistica', 'instituto ions ciencias noeticas',
+        'diane hennacy powell autismo telepatia', 'meditacion para tdah neuroplasticidad', 'superpoder tdah neurobiologia'
+      ]
     }
   },
   {
@@ -78,11 +93,12 @@ export const investigations: Investigation[] = [
     tags: ['Esoterismo', 'Historia', 'Bioacústica', 'Ocultismo', 'Filosofía'],
     seo: {
       title: 'Gatos, Magia y Neurociencia: La Simbiosis Felino-Iniciática | Arché',
-      description: 'Un análisis histórico, filosófico y científico de la relación entre los felinos y las tradiciones esotéricas. Desde el antiguo Egipto hasta la bioacústica moderna del ronroneo.',
+      description: 'Un análisis histórico, filosófico y científico del felino esotérico. Desde Egipto y la Luz Astral de Lévi hasta la bioacústica curativa del ronroneo y visión ultravioleta.',
       keywords: [
-        'gatos magia ocultismo', 'felinos esoterica', 'bastet egipto', 'ronroneo frecuencia sanación',
-        'gatos brujería historia', 'esoterismo felino', 'Eliphas Levi luz astral', 'gatos hermetismo',
-        'bioacústica felina', 'frecuencia ronroneo Hz medicina', 'ocultismo científico'
+        'gatos magia ocultismo', 'frecuencia ronroneo gato sanacion 25 hz', 'porque los gatos ven espiritus vision ultravioleta',
+        'gatos esoterismo hermetismo', 'eliphas levi luz astral gatos', 'gatos en la brujeria historia',
+        'gatos aurora dorada dion fortune', 'bioacustica felina osteogenesis', 'magnetorrecepcion en gatos',
+        'rupert sheldrake telepatia en animales', 'gato como protector espiritual chamanico'
       ]
     }
   }
