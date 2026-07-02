@@ -115,12 +115,13 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
     <>
       {/* Firma */}
       <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
-        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-          <Hexagon className="w-5 h-5 text-purple-400/50" />
+        <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 shrink-0 translate-y-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/napbak.png" alt="Napoleon Baca" className="w-full h-full object-cover grayscale opacity-80" />
         </div>
-        <div>
-          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
-          <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+        <div className="flex flex-col justify-center">
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1] mb-1">INVESTIGADO POR</p>
+          <p className="font-serif text-lg text-[#8A8881] italic leading-none m-0">Napoleon Baca</p>
         </div>
       </div>
 
@@ -464,12 +465,13 @@ function ArticuloGrinberg() {
     <>
       {/* Firma */}
       <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
-        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-          <Hexagon className="w-5 h-5 text-purple-400/50" />
+        <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 shrink-0 translate-y-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/napbak.png" alt="Napoleon Baca" className="w-full h-full object-cover grayscale opacity-80" />
         </div>
-        <div>
-          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
-          <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+        <div className="flex flex-col justify-center">
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1] mb-1">INVESTIGADO POR</p>
+          <p className="font-serif text-lg text-[#8A8881] italic leading-none m-0">Napoleon Baca</p>
         </div>
       </div>
 
@@ -480,6 +482,23 @@ function ArticuloGrinberg() {
       <p>El estudio de la conciencia ha transitado durante las últimas décadas desde los márgenes de la especulación filosófica hacia el centro neurálgico de la física teórica y la biología cuántica. Históricamente, el paradigma materialista clásico nos ha dicho que la experiencia consciente es un simple accidente: un epifenómeno de la complejidad de nuestro cerebro confinado a la bóveda craneal.</p>
 
       <p>En los últimos años, la figura del neurofisiólogo mexicano Dr. Jacobo Grinberg-Zylberbaum ha cobrado una inmensa popularidad. Su misteriosa desaparición y sus fascinantes postulados sobre cómo el cerebro co-crea la realidad han capturado la imaginación del público. Pero en el Instituto Arché, no nos conformamos con el misticismo o el fanatismo ciego; buscamos cruzar estos conceptos con el rigor de la ciencia.</p>
+
+      <figure className="breakout-full h-[50vh] md:h-[65vh] my-16 overflow-hidden group relative bg-[#0a0a0a] border border-white/5 rounded-sm">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img 
+          src="/jacobo-grinberg.jpg" 
+          alt="Dr. Jacobo Grinberg-Zylberbaum" 
+          className="w-full h-full object-cover object-top grayscale opacity-55 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-95 group-hover:scale-105" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
+        <div className="absolute bottom-6 left-8 right-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-2 pointer-events-none z-10">
+          <div>
+            <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-1.5">PIONERO DE LA NEUROFISIOLOGÍA DE FRONTERA</p>
+            <p className="font-serif text-2xl md:text-3xl text-[#E8E6E1] italic m-0">Dr. Jacobo Grinberg-Zylberbaum (1946–1994)</p>
+          </div>
+          <p className="font-mono text-[9px] text-white/50 tracking-widest uppercase">LABORATORIO DE PSICOFISIOLOGÍA — UNAM</p>
+        </div>
+      </figure>
 
       <h3>Glosario Arché: Herramientas para la Mente Curiosa</h3>
 
@@ -542,7 +561,7 @@ function ArticuloGrinberg() {
         <p className="italic text-[#c4c2bc] m-0">&ldquo;Es un error epistemológico común confundir este resultado final con el estímulo primario, asumiendo falsamente que el mundo exterior es una entidad mecánica ajena al observador, cuando de facto, es una <strong>co-creación informacional participativa</strong>.&rdquo;</p>
       </div>
 
-      <h4>1.3. Validación Empírica: El Potencial Transferido</h4>
+      <h4>1.3. El Potencial Transferido: La Controvertida Búsqueda de Evidencia Empírica</h4>
 
       <figure className="my-16 group relative">
         <div className="w-full h-56 md:h-64 overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm relative flex items-center justify-center">
@@ -569,11 +588,28 @@ function ArticuloGrinberg() {
         </div>
         <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
           <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">EXPERIMENTO CENTRAL</p>
-          <p className="font-serif text-sm text-[#c4c2bc] italic">El Potencial Transferido: entrelazamiento cerebral publicado en Physics Essays (1994).</p>
+          <p className="font-serif text-sm text-[#c4c2bc] italic">El Potencial Transferido: entrelazamiento cerebral humano publicado en Physics Essays (1994).</p>
+          <div className="mt-2 space-y-1 font-mono text-[11px] text-[#8A8881]">
+            <p><span className="text-purple-400">Fase 1:</span> SUJETO A y SUJETO B (establecen un vínculo empático profundo).</p>
+            <p><span className="text-purple-400">Fase 2:</span> AISLAMIENTO (Cámaras de Faraday separadas, sin contacto físico ni sensorial).</p>
+            <p><span className="text-purple-400">Fase 3:</span> ESTÍMULO (Sujeto A recibe destellos luminosos; Sujeto B permanece a oscuras).</p>
+            <p className="text-[#E8E6E1] font-semibold pt-1"><span className="text-purple-400">RESULTADO PROPUESTO:</span> EEG SINCRONIZADO.</p>
+          </div>
         </figcaption>
       </figure>
 
-      <p>En 1994, Grinberg publicó en la revista <em>Physics Essays</em> evidencia del &ldquo;Potencial Transferido&rdquo;. En laboratorio, dos sujetos establecían un vínculo empático. Luego se separaban en cámaras aisladas. Al presentar estímulos luminosos a uno, el cerebro del otro sujeto mostraba simultáneamente un patrón electrofisiológico idéntico, sin estímulo físico alguno.</p>
+      <p>En 1994, Grinberg publicó el experimento más audaz de su carrera para intentar demostrar físicamente la existencia de la Látice. Tras crear un estado de empatía compartida, dos sujetos eran separados en cámaras aisladas acústica y electromagnéticamente. Al someter a uno de ellos a estímulos luminosos, el electroencefalograma (EEG) del otro sujeto mostraba un patrón electrofisiológico sorprendentemente similar —el Potencial Transferido— en el mismo instante, sin haber recibido ningún estímulo físico.</p>
+
+      <div className="my-8 p-6 bg-[#0a0a0a]/50 border border-white/10 rounded-sm">
+        <h4 className="font-serif text-lg text-[#E8E6E1] mb-2 mt-0">El Muro de la Ortodoxia Científica</h4>
+        <p className="text-sm text-[#c4c2bc] leading-relaxed m-0">A la luz del rigor científico moderno, es indispensable hacer una pausa metodológica: el estándar de oro de la ciencia es la replicabilidad independiente. Hasta la fecha, los laboratorios convencionales que han intentado replicar el Potencial Transferido bajo estrictos protocolos de doble ciego no han logrado resultados consistentes. Para la neurociencia ortodoxa, el fenómeno no ha sobrevivido al escrutinio estadístico, siendo categorizado a menudo como un posible artefacto metodológico o una anomalía no comprobable.</p>
+      </div>
+
+      <div className="my-8 p-6 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50 text-sm">
+        <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-2">El Misterio de la Variable Subjetiva</p>
+        <p className="italic text-[#c4c2bc] m-0 mb-3">Sin embargo, descartar precipitadamente esta investigación como un simple error de medición es ignorar la premisa central de la Teoría Sintérgica. Grinberg advertía que el catalizador del fenómeno no eran los cables ni la luz, sino el vínculo empático previo entre los sujetos —una variable puramente cualitativa y subjetiva—.</p>
+        <p className="italic text-[#c4c2bc] m-0">La ciencia materialista actual es excelente midiendo voltajes, pero carece de instrumentos para calibrar o estandarizar la empatía humana. El Potencial Transferido se mantiene hoy no como un hecho científicamente establecido, sino como el &ldquo;Santo Grial&rdquo; de la neurobiología de frontera: una provocación directa que nos sugiere que nuestros instrumentos de laboratorio podrían estar siendo ciegos ante las propiedades cuánticas y no-locales de la conciencia.</p>
+      </div>
 
       <h3>2. Correlatos de Rigurosidad: La Física Teórica al Rescate</h3>
 
@@ -599,7 +635,7 @@ function ArticuloGrinberg() {
             </tr>
             <tr>
               <td className="px-6 py-4 font-bold text-[#E8E6E1]">Penrose &amp; Hameroff</td>
-              <td className="px-6 py-4 italic">Orch-OR — microtúbulos como antenas cuánticas</td>
+              <td className="px-6 py-4 italic">Orch-OR — microtúbulos como antenas cuánticas (Lo macro habitando lo micro)</td>
               <td className="px-6 py-4">El momento dipolar de la tubulina protege información cuántica en la biología húmeda.</td>
             </tr>
             <tr>
@@ -622,11 +658,11 @@ function ArticuloGrinberg() {
         </div>
       </figure>
 
-      <h3>3. La Identidad como &ldquo;Disfraz&rdquo; Informacional</h3>
-      <p>Si la conciencia es un campo continuo e indivisible (panpsiquismo moderno), surge el gran enigma: ¿Por qué me siento yo, encerrado en este cuerpo, separado de ti? La neurobiología concluye que la &ldquo;identidad&rdquo; no es el sujeto fundacional del universo, sino un disfraz evolutivo. Una herramienta topológica utilizada por la conciencia primaria para sobrevivir.</p>
+      <h3>3. La Identidad como &ldquo;Disfraz&rdquo; Informacional: El Filtro de la Látice</h3>
+      <p>Si la Látice es un campo continuo e indivisible de conciencia, surge el gran enigma que el propio Grinberg intentó resolver: ¿Por qué me siento yo, encerrado en este cuerpo, separado de ti? Grinberg teorizó que el ego no es absoluto, sino una &ldquo;limitación en la capacidad de decodificación&rdquo; del cerebro; un filtro necesario para poder operar en la materia. Hoy, la neurobiología y la ciencia cognitiva validan esta intuición, concluyendo que la &ldquo;identidad&rdquo; es, en efecto, un disfraz evolutivo: una herramienta topológica utilizada por la conciencia primaria para sobrevivir.</p>
 
       <h4>La Interfaz Multimodal de Donald Hoffman</h4>
-      <p>El científico cognitivo Donald Hoffman ha demostrado matemáticamente que la evolución <em>castiga</em> a las especies que ven la realidad cuántica tal cual es. La evolución prefiere sistemas que ocultan la realidad y muestran una interfaz simplificada para sobrevivir.</p>
+      <p>Lo que Grinberg llamó el &ldquo;filtro&rdquo; del cerebro, el científico cognitivo Donald Hoffman lo ha demostrado matemáticamente: la evolución <em>castiga</em> a las especies que ven la realidad cuántica tal cual es. La evolución prefiere sistemas que ocultan la realidad y muestran una interfaz simplificada para sobrevivir.</p>
 
       <div className="my-8 p-6 border border-purple-500/10 bg-[#0a0a0a]/50 rounded-sm">
         <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-3">Analogía de los íconos de escritorio</p>
@@ -634,9 +670,9 @@ function ArticuloGrinberg() {
       </div>
 
       <h4>El Retraso Temporal y Karl Friston</h4>
-      <p>Karl Friston y el Principio de Minimización de Energía Libre explican que el cerebro siempre está adivinando el futuro inmediato porque tiene un &ldquo;retraso&rdquo; biológico. Al tratar de sincronizarse con el entorno, genera inevitablemente una división ilusoria: el &ldquo;Yo&rdquo; (agencia) vs el &ldquo;No-Yo&rdquo; (el entorno). La identidad es el solenoide biológico limitante para poder jugar el juego de la termodinámica.</p>
+      <p>Karl Friston y el Principio de Minimización de Energía Libre explican el mecanismo biológico detrás de este filtro. El cerebro siempre está adivinando el futuro inmediato porque tiene un &ldquo;retraso&rdquo; biológico. Al tratar de sincronizarse con el entorno, genera inevitablemente una división ilusoria: el &ldquo;Yo&rdquo; (agencia) vs el &ldquo;No-Yo&rdquo; (el entorno). La identidad es el solenoide biológico limitante para poder jugar el juego de la termodinámica.</p>
 
-      <h3>4. Individualismo Abierto: Los &ldquo;Brazos&rdquo; de la Existencia</h3>
+      <h3>4. Individualismo Abierto: La &ldquo;Unidad&rdquo; Sintérgica</h3>
 
       <figure className="my-16 group">
         <div className="w-full overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
@@ -650,17 +686,20 @@ function ArticuloGrinberg() {
         </figcaption>
       </figure>
 
-      <p>Si la identidad es una máscara, ¿quién está detrás? El filósofo Daniel Kolak en su teoría del Individualismo Abierto demuestra que, matemáticamente, solo existe un sujeto de experiencia en todo el cosmos.</p>
-      <p>Aunque tengamos distintas memorias y cuerpos, el &ldquo;Sujeto de Sí Mismo&rdquo; —la sensación profunda de &ldquo;yo estoy consciente&rdquo;— es literalmente el mismo principio en todas las mentes.</p>
+      <p>En sus estudios sobre estados alterados y chamanismo, Grinberg concluyó que cuando el campo neuronal alcanza su máxima coherencia (alta sintergia), el sujeto experimenta &ldquo;La Unidad&rdquo;: la comprensión directa de que no hay observadores separados, sino que la Látice se observa a sí misma.</p>
+      <p>Si la identidad es una máscara como dicta la biología, ¿quién está detrás? El filósofo Daniel Kolak en su teoría del Individualismo Abierto demuestra matemáticamente esta misma &ldquo;Unidad&rdquo; de Grinberg, argumentando que solo existe un sujeto de experiencia en todo el cosmos. Aunque tengamos distintas memorias y cuerpos, el &ldquo;Sujeto de Sí Mismo&rdquo; —la sensación profunda de &ldquo;yo estoy consciente&rdquo;— es literalmente el mismo principio en todas las mentes.</p>
 
       <div className="my-8 p-6 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50 text-sm">
         <p className="font-mono text-[10px] tracking-widest text-purple-400 uppercase mb-2">Corolario Ético</p>
-        <p className="italic text-[#c4c2bc] m-0">El Individualismo Abierto destruye el Solipsismo. Al mirar al otro, estás observando a la misma Conciencia Primaria que te habita, asomándose desde una ventana topológica diferente. <strong>Dañar a un tercero no es una metáfora de crueldad; es matemáticamente auto-sadismo.</strong></p>
+        <p className="italic text-[#c4c2bc] m-0">El Individualismo Abierto, al igual que la Teoría Sintérgica en su cúspide, destruye el Solipsismo. Al mirar al otro, estás observando a la misma Conciencia Primaria que te habita, asomándose desde una ventana topológica diferente. <strong>Dañar a un tercero no es una metáfora de crueldad; es matemáticamente auto-sadismo.</strong></p>
       </div>
 
-      <h3>Conclusión del Instituto Arché: La Influencia del Pensamiento</h3>
-      <p>El escrutinio cruzado interdisciplinario derriba definitivamente el dogma de que nuestra conciencia es un accidente bioquímico. El universo es un sistema informacional primario. Nuestro pensamiento tiene una influencia y una gravedad sobre nuestro entorno inmensamente mayor de lo que el paradigma clásico nos hizo creer.</p>
-      <p>La separación que experimentamos no es real; es simplemente una estratagema cibernética. Somos los tentáculos sensoriales con los que el propio universo, disipando la ilusión del vacío, logra por fin tocarse, experimentarse y despertarse a sí mismo.</p>
+      <h3>Conclusión: El Veredicto Científico y la Trascendencia Sintérgica</h3>
+      <p>Al someter la Teoría Sintérgica al escrutinio estricto de la ciencia convencional actual, el resultado es mixto, pero profundamente revelador.</p>
+      <p>Desde una perspectiva puramente empírica, la teoría de Grinberg no sobrevive intacta. El paradigma neurobiológico ortodoxo rechaza la validez del &ldquo;Potencial Transferido&rdquo; debido a la falta de replicabilidad independiente, y la física cuántica estándar aún considera que el cerebro es un entorno demasiado &ldquo;caliente y ruidoso&rdquo; para sostener la coherencia macroscópica que requeriría la interacción directa con una Látice espacial.</p>
+      <p>Sin embargo, como marco teórico y visionario, Grinberg ha sido espectacularmente vindicado por ramas de frontera. Lo que él llamó el &ldquo;cerebro como transductor de una realidad implicada&rdquo;, hoy resuena con precisión matemática en el Procesamiento Predictivo de Karl Friston y en los modelos evolutivos de interfaces de Donald Hoffman. La ciencia moderna concuerda hoy con Grinberg en su postulado más disruptivo: la realidad que experimentamos no es el universo objetivo, sino una interfaz biológica co-creada.</p>
+      <p>El valor real de la obra de Grinberg hoy no depende de si sus máquinas de EEG lograron medir telepatía en 1994, sino de su capacidad para destrozar el dogma del materialismo ingenuo. Al integrar estas intuiciones con el Individualismo Abierto, la conclusión es ineludible: la separación que experimentamos es una estratagema cibernética, necesaria para la supervivencia biológica, pero ilusoria a nivel fundamental.</p>
+      <p>Somos, en última instancia, los nodos sensoriales con los que el propio universo, disipando la ilusión del vacío, logra por fin tocarse, experimentarse y despertarse a sí mismo.</p>
 
       <figure className="breakout-full h-[55vh] md:h-[75vh] my-20 overflow-hidden group relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -669,7 +708,7 @@ function ArticuloGrinberg() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/80" />
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 pointer-events-none">
           <p className="font-serif text-lg md:text-2xl text-white/60 italic text-center max-w-lg px-4 group-hover:text-white/90 transition-colors duration-1000">
-            &ldquo;Somos los tentáculos sensoriales con los que el universo logra, por fin, tocarse a sí mismo.&rdquo;
+            &ldquo;Somos, en última instancia, los nodos sensoriales con los que el propio universo logra por fin tocarse, experimentarse y despertarse a sí mismo.&rdquo;
           </p>
         </div>
       </figure>
@@ -703,23 +742,56 @@ function ArticuloTDAH() {
   return (
     <>
       <div className="flex items-center gap-4 mb-16 py-6 border-y border-white/5">
-        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-          <Hexagon className="w-5 h-5 text-purple-400/50" />
+        <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 shrink-0 translate-y-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/napbak.png" alt="Napoleon Baca" className="w-full h-full object-cover grayscale opacity-80" />
         </div>
-        <div>
-          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1]">INVESTIGADO POR</p>
-          <p className="font-serif text-lg text-[#8A8881] italic">Napoleon Baca</p>
+        <div className="flex flex-col justify-center">
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1] mb-1">INVESTIGADO POR</p>
+          <p className="font-serif text-lg text-[#8A8881] italic leading-none m-0">Napoleon Baca</p>
         </div>
       </div>
 
       <p className="mb-12 text-2xl md:text-3xl text-[#E8E6E1] font-light italic border-l-2 border-purple-500/30 pl-8 leading-snug">
-        La investigación de fenómenos que trascienden los límites convencionales de la percepción sensorial ha sido históricamente relegada. No obstante, el TDAH ofrece una ventana científica única profunda.
+        La investigación de fenómenos que trascienden los límites convencionales de la percepción sensorial ha sido históricamente relegada. No obstante, el estudio riguroso de la neurodivergencia, específicamente el Trastorno por Déficit de Atención con Hiperactividad (TDAH), ofrece una ventana científica única para comprender cómo el cerebro procesa la información de manera no lineal.
       </p>
 
-      <p>El estudio riguroso de la neurodivergencia, específicamente el Trastorno por Déficit de Atención con Hiperactividad (TDAH), ofrece una ventana científica única para comprender cómo el cerebro procesa la información de manera no lineal. El síntoma clínico de &quot;terminar las frases de los demás&quot; no es meramente una manifestación de impulsividad motora, sino un indicador de un motor predictivo hiper-activado que opera bajo principios bayesianos de inferencia.</p>
+      <p>El síntoma clínico de &ldquo;terminar las frases de los demás&rdquo; no es meramente una manifestación de impulsividad motora, sino un indicador de un motor predictivo hiper-activado que opera bajo principios bayesianos de inferencia.</p>
 
-      <h3>Epistemología de la Parapsicología y el Legado de la Investigación Rigurosa</h3>
-      <p>Para abordar la telepatía con seriedad científica, es imperativo reconocer el trabajo de instituciones que han aplicado métodos cuantitativos a fenómenos anómalos durante casi un siglo. El Centro de Investigación Rhine fue pionero en este campo, estableciendo que la telepatía y la clarividencia son realidades observables en entornos controlados mediante estadística avanzada. Instituciones como el Instituto de Ciencias Noéticas (IONS) continúan esta labor, sugiriendo que la intuición no es un evento místico, sino un proceso biológico que puede estar particularmente acentuado en cerebros con conectividad atípica.</p>
+      <h3>1. Epistemología de la Parapsicología y el Legado de la Investigación Rigurosa</h3>
+      
+      <h4>De la Probabilidad a la Percepción No-Local</h4>
+      <p>La neurociencia ortodoxa explica que esta capacidad de &ldquo;terminar frases&rdquo; es simplemente un cerebro bayesiano calculando probabilidades a velocidad extrema basándose en la memoria biográfica y el lenguaje. Pero para el Instituto Arché, esta explicación se queda corta cuando el individuo adivina datos que no tenía forma física de conocer.</p>
+      
+      <p>Aquí es donde debemos cruzar una frontera incómoda: ¿Qué pasa si este &ldquo;motor predictivo&rdquo; hiper-activado del TDAH no solo utiliza el archivo de la memoria, sino que funciona como la antena biológica que permite sintonizar información no-local? Para abordar esta posibilidad sin caer en el misticismo, es imperativo reconocer el trabajo de instituciones que han aplicado métodos cuantitativos a estos fenómenos anómalos durante casi un siglo.</p>
+
+      <p>El Centro de Investigación Rhine fue pionero en este campo, estableciendo que la telepatía y la clarividencia son realidades observables en entornos controlados mediante estadística avanzada. Instituciones como el Instituto de Ciencias Noéticas (IONS) continúan esta labor, sugiriendo que la intuición no es un evento místico, sino un proceso biológico que puede estar particularmente acentuado en cerebros con conectividad atípica.</p>
+
+      {/* Grid asimétrico */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-16 items-start">
+        <figure className="group">
+          <div className="overflow-hidden bg-[#0a0a0a] border border-white/5 relative">
+            <div className="absolute inset-0 bg-purple-500/10 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/centro-rhine.webp" alt="Centro Rhine" className="w-full aspect-[4/5] object-cover grayscale opacity-60 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100" />
+          </div>
+          <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+            <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">FIGURA I.</p>
+            <p className="font-serif text-sm text-[#c4c2bc] italic">Exterior del Rhine Research Center: casi un siglo investigando científicamente los límites de la conciencia.</p>
+          </figcaption>
+        </figure>
+        <figure className="group md:mt-24">
+          <div className="overflow-hidden bg-[#0a0a0a] border border-white/5 relative">
+             <div className="absolute inset-0 bg-purple-500/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/ions-mapeo.jpeg" alt="Mapeo cortical en IONS" className="w-full aspect-square object-cover grayscale opacity-50 transition-all duration-1000 group-hover:grayscale-0 group-hover:opacity-100" />
+          </div>
+          <figcaption className="mt-4 border-l border-purple-500/30 pl-4">
+            <p className="font-mono text-[10px] text-[#8A8881] tracking-widest">FIGURA II.</p>
+            <p className="font-serif text-sm text-[#c4c2bc] italic">Mapeo cortical y validación de factores de saber directo en IONS.</p>
+          </figcaption>
+        </figure>
+      </div>
 
       <div className="overflow-x-auto my-8">
         <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
@@ -754,11 +826,20 @@ function ArticuloTDAH() {
         </table>
       </div>
 
-      <h3>La Fenomenología del TDAH: Del Síntoma a la Capacidad Predictiva</h3>
+      <h3>2. La Fenomenología del TDAH: Del Síntoma a la Capacidad Predictiva</h3>
       <p>Uno de los indicadores más reveladores en las escalas de diagnóstico para adultos es la tendencia a terminar las oraciones de las personas antes de que estas las completen. Este comportamiento revela una arquitectura cognitiva que procesa los patrones a una velocidad superior a la entrega de datos sensoriales.</p>
 
       <h4>Codificación Predictiva y el Cerebro Bayesiano</h4>
-      <p>La teoría postula que el cerebro no espera a recibir toda la información sensorial para construir una interpretación; genera modelos internos. En el TDAH, este proceso opera con un sesgo hacia las expectativas internas, permitiendo &quot;leer&quot; la intención del interlocutor. Existe una alteración en la asignación de precisión a los errores de predicción: el cerebro otorga un peso excesivo a sus propias predicciones internas (top-down), resultando en la sensación clarividente de &quot;saber&quot; lo que vendrá.</p>
+      <p>Para entender cómo el TDAH podría cruzar la línea hacia la telepatía, primero debemos entender cómo predice el futuro a corto plazo. La neurociencia postula que el cerebro no espera a recibir toda la información por los ojos o los oídos para construir una interpretación; genera modelos internos.</p>
+
+      <p>En el TDAH, existe un sesgo masivo hacia estas predicciones internas. El cerebro le da más peso a lo que cree que va a pasar (top-down) que a lo que está pasando físicamente. ¿Por qué es vital entender esto? Porque la siguiente tabla ilustra exactamente la diferencia entre un cerebro normal (que espera pacientemente los datos) y un cerebro TDAH (que captura patrones completos de golpe).</p>
+
+      <figure className="my-16 group">
+        <div className="w-full overflow-hidden bg-[#0a0a0a] border border-white/5 rounded-sm">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/jaWKRiZ7F_1256x620__1.webp" alt="Arquitectura del Pensamiento Predictivo" className="w-full h-72 md:h-96 object-cover grayscale opacity-50 transition-all duration-[2s] group-hover:grayscale-[0.2] group-hover:opacity-100 group-hover:scale-105" />
+        </div>
+      </figure>
 
       <div className="overflow-x-auto my-8">
         <table className="w-full text-sm text-left text-[#c4c2bc] bg-[#0a0a0a] border border-white/10">
@@ -789,23 +870,87 @@ function ArticuloTDAH() {
         </table>
       </div>
 
-      <h3>Arquitectura Neuroanatómica de la Intuición</h3>
+      <p>Si esta &ldquo;Estructura anticipatoria&rdquo; solo usara la memoria, la llamaríamos simple deducción. Pero cuando este mismo mecanismo acierta datos que el individuo no tenía forma física de conocer, nos enfrentamos a la posibilidad de que esta maquinaria predictiva sea la antena exacta que sintoniza el campo telepático.</p>
+
+      <h3>3. Arquitectura Neuroanatómica: ¿Qué dice la ciencia de la intuición?</h3>
+      <p>Antes de adentrarnos en territorios extrasensoriales, debemos hacernos una pregunta fundamental: ¿es la intuición un concepto esotérico, o está avalada por la ciencia dura? La respuesta es que la intuición tiene una dirección física y medible en el cerebro. No es magia; es neurología. Veamos dónde ocurre y por qué en el TDAH está alterada:</p>
+
       <h4>La Corteza Prefrontal Ventromedial (vmPFC)</h4>
-      <p>La vmPFC es el centro de funciones ejecutivas &quot;calientes&quot;, integrando señales somáticas o &quot;marcadores intestinales&quot;. En individuos con TDAH hay una reducción en la activación de la vmPFC, por lo que el control fino sobre cuándo aplicar intuiciones se desregula hacia la impulsividad psíquica.</p>
+      <p>Esta zona de nombre imponente es, en términos sencillos, el centro de las &ldquo;corazonadas&rdquo;. Es el área que integra lo que llamamos &ldquo;marcadores somáticos&rdquo; (esa sensación física en el estómago de que algo va a pasar). En individuos con TDAH hay una reducción en la activación de la vmPFC. Al no tener este freno, el control fino sobre cuándo hacer caso a esas intuiciones se desregula, resultando en lo que podríamos llamar &ldquo;impulsividad psíquica&rdquo;.</p>
 
-      <h4>La DMN y la Simulación Social</h4>
-      <p>La Red Neuronal por Defecto (DMN) es fundamental para la Teoría de la Mente (modelar lo que otros piensan). En neurotípicos, se apaga durante el trabajo. En el TDAH permanece activa. Este cerebro está constantemente ejecutando simulaciones sociales telepáticas en segundo plano, interpretadas como intuición pura.</p>
+      <h4>La DMN: El Límite entre la Hiper-Empatía y la Percepción Extrasensorial</h4>
+      <p>La Red Neuronal por Defecto (DMN) es fundamental para la Teoría de la Mente (la capacidad de modelar y predecir lo que otros piensan). En cerebros neurotípicos, esta red se &ldquo;apaga&rdquo; cuando el individuo se concentra en una tarea. En el TDAH, sin embargo, la DMN permanece hiperactiva casi permanentemente.</p>
+      
+      <p>Pero aquí es donde la neurobiología roza el misterio: ¿En qué punto esta hiper-empatía —la capacidad de procesar inconscientemente microgestos y tonos de voz— cruza la línea hacia la percepción extrasensorial pura? Este cerebro está constantemente ejecutando simulaciones sociales complejas en segundo plano. Cuando el filtrado de la realidad física no es suficiente para explicar la precisión de estas simulaciones, lo que la clínica clasifica como &ldquo;ansiedad anticipatoria&rdquo;, en la experiencia subjetiva del individuo se vive como una auténtica transferencia telepática de la intención del otro.</p>
 
-      <h3>Capacidades Anómalas: El Caso de la Telepatía y Disociación</h3>
-      <p>Expertos como Diane Hennacy Powell sugieren que la telepatía es una capacidad humana primordial &quot;enterrada&quot; bajo el desarrollo del lenguaje. En autistas no verbales o perfiles fuertemente neurodivergentes, el cerebro compensa manteniendo acceso al campo de conciencia compartido. A su vez, estudios de IONS indican que traumas inducen una &quot;alter-asociación&quot; disociativa (clarividencia post-traumática) como mecanismo hipervigilante hiperadaptativo.</p>
+      <figure className="breakout-full h-[40vh] md:h-[55vh] my-20 overflow-hidden group relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/Default_Mode_Network_Connectivity.webp" alt="Resonancia de Redes Cerebrales" className="w-full h-full object-cover grayscale opacity-40 transition-all duration-[2s] ease-out group-hover:grayscale-[0.3] group-hover:opacity-100 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-[#050505]/50" />
+        <div className="absolute bottom-6 right-8 text-right pointer-events-none z-10">
+          <p className="font-mono text-[10px] tracking-widest text-[#E8E6E1] uppercase">RED NEURONAL POR DEFECTO</p>
+          <p className="font-serif text-sm text-white/50 italic">Un procesador background en perpetua latencia.</p>
+        </div>
+      </figure>
 
-      <h3>Farmacología: El Efecto de la Atomoxetina en la Intuición</h3>
-      <p>La atomoxetina (ISRN) fortalece la anticorrelación entre la DMN y las redes de control cognitivo, normalizando la hiper-simulación. ¿Disminuye esto la intuición?</p>
-      <ul>
-        <li className="mb-2"><strong>Reducción de Intuición Intrusiva:</strong> Disminuye las ráfagas incontrolables (ej. cortar frases ajenas) al silenciar el ruido de la DMN.</li>
-        <li className="mb-2"><strong>Clarificación de la Señal (Psi):</strong> Al tener menos distracción (top-down), las intuiciones genuinas se pueden diferenciar limpiamente de la ansiedad paranoica.</li>
-        <li><strong>En resumen:</strong> No &quot;borra&quot; la clarividencia; le proporciona el andamiaje ejecutivo para gestionarla conscientemente.</li>
-      </ul>
+      <h3>4. ¿Es esta &ldquo;antena&rdquo; exclusiva del TDAH? Otras neurodivergencias y el Filtrado Sensorial</h3>
+      <p>Llegados a este punto, cabe preguntarse: ¿Es la capacidad de intuir la intención ajena o el futuro inmediato un rasgo exclusivo del TDAH? La respuesta es no. Para entender el fenómeno completo, debemos mirar a otras condiciones como el autismo no verbal o los sobrevivientes de trauma psicológico severo.</p>
+
+      <p>¿Qué tienen en común todas estas neurodivergencias frente a los fenómenos anómalos? La respuesta radica en un mecanismo llamado Sensory Gating (el filtrado sensorial). El cerebro neurotípico posee barreras evolutivas robustas que bloquean el 99% de la información del entorno para mantener al individuo enfocado en la supervivencia básica y la identidad (el &ldquo;filtro&rdquo; del ego).</p>
+
+      <p>En la neurodivergencia, y específicamente en el TDAH, esta barrera es altamente porosa. Al no poder filtrar los estímulos, el cerebro queda &ldquo;abierto&rdquo; y vulnerable, pero también inmensamente receptivo. Esta porosidad neurobiológica es lo que sostiene las observaciones de expertas como la psiquiatra Diane Hennacy Powell, quien sugiere que la telepatía es una capacidad humana primordial &ldquo;enterrada&rdquo; bajo el desarrollo del lenguaje. En autistas no verbales o perfiles fuertemente neurodivergentes, el cerebro compensa manteniendo acceso al campo de conciencia compartido. A su vez, estudios de IONS indican que traumas inducen una &ldquo;alter-asociación&rdquo; disociativa (clarividencia post-traumática) como mecanismo hipervigilante hiperadaptativo.</p>
+
+      <h3>5. El Dilema Clínico: ¿Trastorno o Superpoder? El Rol de la Medicación</h3>
+      <p>Todo esto nos lleva a la pregunta ineludible: Si el TDAH nos otorga esta sensibilidad o &ldquo;antena&rdquo; expandida, ¿es un superpoder o un trastorno? ¿Realmente necesitamos medicarlo? La realidad clínica —y la experiencia observacional de quienes navegamos la neurodivergencia— es que una antena que capta absolutamente todas las estaciones de radio al mismo tiempo no es un don; es un tormento que genera ansiedad profunda.</p>
+
+      <h4>Por qué la Atomoxetina y no un Estimulante Clásico</h4>
+      <p>Al buscar calmar este ruido, el enfoque en fármacos no estimulantes como la atomoxetina (un inhibidor selectivo de la recaptación de noradrenalina) resulta fascinante desde la parapsicología. Mientras que los estimulantes clásicos (como el metilfenidato) simplemente inundan el cerebro de dopamina para forzar la concentración bloqueando el entorno, la atomoxetina hace un trabajo más sutil: modula directamente la Red Neuronal por Defecto (DMN).</p>
+
+      <p>¿Apaga esto la intuición o la telepatía? Los reportes sugieren una paradoja interesante:</p>
+
+      <div className="my-8 space-y-4">
+        <div className="p-5 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50">
+          <p className="font-mono text-[11px] tracking-widest text-purple-400 uppercase mb-1">Reducción de la Intuición Intrusiva</p>
+          <p className="text-sm text-[#c4c2bc] m-0 leading-relaxed">Disminuye las ráfagas incontrolables (ej. cortar frases ajenas) al silenciar el ruido de fondo de la DMN.</p>
+        </div>
+        <div className="p-5 border-l-2 border-purple-500/50 bg-[#0a0a0a]/50">
+          <p className="font-mono text-[11px] tracking-widest text-purple-400 uppercase mb-1">Clarificación de la Señal (Psi)</p>
+          <p className="text-sm text-[#c4c2bc] m-0 leading-relaxed">Al tener menos distracción y paranoia anticipatoria, el individuo reporta que las intuiciones genuinas se vuelven más claras. Es más fácil diferenciar un ataque de ansiedad de una certeza intuitiva real.</p>
+        </div>
+      </div>
+
+      <p>En resumen: la medicación adecuada no &ldquo;borra&rdquo; el acceso a la información no-local, simplemente le proporciona al cerebro el andamiaje ejecutivo necesario para gestionarla conscientemente.</p>
+
+      <h3>6. La Vía Analógica: La Meditación como Tecnología de Sintonización</h3>
+      <p>Si la medicación ofrece un andamiaje neuroquímico externo, una práctica seria y sostenida de meditación (como el mindfulness o la meditación contemplativa) representa la tecnología &ldquo;analógica&rdquo; definitiva para el cerebro neurodivergente. No se trata de sentarse a relajar la mente, sino de un entrenamiento físico de la arquitectura cerebral.</p>
+
+      <h4>Neuroplasticidad y el Control del &ldquo;Dial&rdquo;</h4>
+      <p>La ciencia es clara respecto a los efectos de la meditación constante en el cerebro: engrosa la corteza prefrontal (nuestra vmPFC, el centro de las corazonadas controladas) y entrena la capacidad de &ldquo;apagar&rdquo; voluntariamente la Red Neuronal por Defecto (DMN).</p>
+
+      <p>Para el individuo con TDAH, esto es revolucionario. La meditación actúa directamente sobre el problema del Sensory Gating (filtrado sensorial). En lugar de que el cerebro esté permanentemente &ldquo;abierto&rdquo; y vulnerable a la avalancha de información externa e interna, el meditador desarrolla un &ldquo;dial&rdquo; consciente. Aprende a abrir la válvula de la intuición cuando es seguro, y a cerrarla cuando necesita operar en el mundo tridimensional.</p>
+
+      <h4>Diferenciando la Señal del Ruido</h4>
+      <p>A diferencia de la atomoxetina, que silencia el ruido de forma sistémica, la meditación entrena al individuo para convertirse en el observador de ese ruido. En la experiencia subjetiva, esto transforma por completo el fenómeno &ldquo;telepático&rdquo; o intuitivo:</p>
+
+      <div className="my-8 space-y-4">
+        <div className="p-5 border border-white/10 bg-[#0a0a0a]/50 rounded-sm">
+          <p className="font-bold text-[#E8E6E1] text-sm mb-1">Cesa la impulsividad psíquica</p>
+          <p className="text-sm text-[#c4c2bc] m-0 leading-relaxed">El impulso de terminar la frase del otro se reconoce, se observa y se contiene.</p>
+        </div>
+        <div className="p-5 border border-white/10 bg-[#0a0a0a]/50 rounded-sm">
+          <p className="font-bold text-[#E8E6E1] text-sm mb-1">Alta Coherencia</p>
+          <p className="text-sm text-[#c4c2bc] m-0 leading-relaxed">Al bajar la ansiedad de fondo, la &ldquo;señal&rdquo; no-local llega de manera nítida. El individuo deja de ser una víctima de su empatía desbordada y se convierte en un receptor afinado.</p>
+        </div>
+      </div>
+
+      <p>La meditación demuestra que la hiper-receptividad del TDAH, cuando es disciplinada a través de la atención plena, deja de ser un déficit de atención y se revela como lo que siempre fue: una hiper-focalización en el campo de información sutil.</p>
+
+      <h3>Conclusión: De Antena Descontrolada a Receptor Sintonizado</h3>
+      <p>El estudio profundo del TDAH nos obliga a replantear si lo que los manuales psiquiátricos llaman un &ldquo;déficit&rdquo; no es, en realidad, un superávit de percepción mal gestionado. La tendencia a &ldquo;terminar las frases del otro&rdquo; y las intuiciones abrumadoras revelan una arquitectura cerebral donde la inferencia predictiva y la porosidad del filtrado sensorial dejan al individuo expuesto a un mar de información, tanto física como no-local.</p>
+
+      <p>Desde este paradigma, el papel de la intervención farmacológica cambia drásticamente. Fármacos como la atomoxetina no &ldquo;amputan&rdquo; la clarividencia ni curan un &ldquo;defecto&rdquo;; actúan sobre el andamiaje ejecutivo del cerebro. Al fortalecer el control sobre la hiperactiva Red Neuronal por Defecto, la medicación no borra el don intuitivo, sino que reduce la estática. Y como hemos explorado, tecnologías milenarias como la meditación ofrecen la capacidad de tomar las riendas de este proceso de manera endógena.</p>
+
+      <p>Al final, el TDAH nos demuestra que la intuición y la telepatía no son anomalías místicas reservadas para elegidos, sino propiedades emergentes de la neurobiología humana cuando se eliminan los filtros habituales. El verdadero desafío evolutivo y clínico para el neurodivergente no es apagar su sensibilidad, sino aprender a transformar su mente: de ser una antena descontrolada que capta todo el ruido del entorno, a convertirse en un receptor lúcido, consciente y sintonizado.</p>
 
       <div className="my-16 py-8 border-y border-white/10 text-center">
         <Hexagon className="w-6 h-6 mx-auto mb-4 text-purple-400/50" />
@@ -818,7 +963,7 @@ function ArticuloTDAH() {
           <span className="text-lg leading-none">+</span>
         </summary>
         <div className="mt-6 text-sm text-[#8A8881] font-mono leading-relaxed space-y-2 h-64 overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-white/10">
-          <p>• Predictive coding - Wikipedia & Neuroscience News</p>
+          <p>• Predictive coding - Wikipedia &amp; Neuroscience News</p>
           <p>• The Noetic Signature Inventory: Development, Exploration, and Initial Validation - PMC</p>
           <p>• Telepathy in Autistic Savants with Diane Hennacy Powell, MD.</p>
           <p>• The Default Mode Network: why your distracted brain is actually generating ideas</p>
