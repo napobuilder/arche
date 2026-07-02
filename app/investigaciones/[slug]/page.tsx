@@ -901,8 +901,8 @@ function ArticuloTDAH() {
       <div className="my-12 clear-both overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=1200"
-          alt="Porosidad del Filtrado Sensorial"
+          src="/neurodivergencia.jpg"
+          alt="Porosidad del Filtrado Sensorial y Neurodivergencia"
           className="float-none md:float-right w-full md:w-80 h-auto ml-0 md:ml-8 mb-6 md:mb-4 grayscale opacity-60 border border-white/10 rounded-sm hover:grayscale-0 hover:opacity-100 transition-all duration-700 object-cover"
         />
         <div className="space-y-4">
