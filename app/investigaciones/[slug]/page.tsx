@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { Lock, Unlock, ArrowLeft, Hexagon } from 'lucide-react'
 import { getInvestigationBySlug, getAllSlugs } from '@/data/investigations'
-import Paywall from '@/components/Paywall'
 
 const BASE_URL = 'https://proyectoarche.com'
 
@@ -110,7 +108,7 @@ export function generateStaticParams() {
 }
 
 // ── CONTENIDO DEL ARTÍCULO 01: GATOS ──────────────────────────────────────
-function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
+function ArticuloGatos() {
   return (
     <>
       {/* Firma */}
@@ -276,19 +274,6 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
         <li><strong>100 a 150 Hz:</strong> Actúa como un potente mecanismo analgésico y antiinflamatorio.</li>
       </ul>
 
-      {/* ── PAYWALL o CONTENIDO DESBLOQUEADO ── */}
-      {!isUnlocked ? (
-        <Paywall 
-          checkoutUrl="https://archeinstitute.lemonsqueezy.com/checkout/buy/d0b36218-6191-4643-9421-4f6fead3aa18" 
-          slug="gatos-magia-neurociencia" 
-        />
-      ) : (
-        <>
-          <div className="my-16 py-8 border-y border-purple-500/30 text-center bg-purple-500/5">
-            <h3 className="text-xl md:text-2xl text-purple-400 font-serif mb-2 mt-0">✅ Archivo Premium Desbloqueado</h3>
-            <p className="font-mono text-[10px] tracking-widest text-[#8A8881] uppercase mb-0">El conocimiento oculto ha sido revelado. Gracias por tu apoyo.</p>
-          </div>
-          
           <h4>2. Espectroscopía Ocular: Visión Ultravioleta y Magnetorrecepción</h4>
           <p>Cuando un gato clava su mirada en un punto aparentemente vacío y eriza su pelaje, el conocimiento popular asume que está viendo a un espíritu. La ciencia ofrece una explicación igualmente fascinante que roza la frontera del misticismo: su aparato ocular detecta segmentos del espectro electromagnético invisibles para la biología humana.</p>
           <p>Las investigaciones en fotorrecepción mamífera han revolucionado la comprensión de los sentidos animales. Mientras que el cristalino del ojo humano adulto posee pigmentos amarillos que bloquean intencionalmente la luz ultravioleta (UV) para proteger la retina y aumentar la agudeza visual, los estudios de espectrofotometría sobre medios oculares y retinas han demostrado que los felinos poseen un cristalino transparente al espectro de los rayos Ultravioleta A (UVA, 315-400 nm). Los análisis revelaron que el ojo del gato transmite hasta un 59% de la luz ultravioleta a 400 nm hacia la retina, un porcentaje inmensamente superior al de otros mamíferos estudiados.</p>
@@ -453,8 +438,6 @@ function ArticuloGatos({ isUnlocked }: { isUnlocked: boolean }) {
               <p>Para la bibliografía completa de más de 120 referencias científicas, veterinarias, parapsicológicas e históricas, contactar al programa académico del Instituto Arché.</p>
             </div>
           </details>
-        </>
-      )}
     </>
   )
 }
@@ -1126,11 +1109,6 @@ export default async function InvestigacionPage({ params }: Props) {
   const paper = getInvestigationBySlug(slug)
   if (!paper) notFound()
 
-  // 🍪 Extraemos la galleta de seguridad
-  const cookieStore = await cookies()
-  const hasAccessCookie = cookieStore.get(`arche_unlocked_${slug}`)
-  const isUnlocked = !!hasAccessCookie?.value
-
   return (
     <main className="relative w-full min-h-screen pb-32 bg-[#050505]">
 
@@ -1173,7 +1151,7 @@ export default async function InvestigacionPage({ params }: Props) {
 
       {/* Contenido */}
       <div className="relative w-full px-8 md:px-0 max-w-2xl mx-auto font-serif text-lg md:text-xl leading-relaxed text-[#c4c2bc] article-content">
-        {paper.slug === 'gatos-magia-neurociencia' && <ArticuloGatos isUnlocked={isUnlocked} />}
+        {paper.slug === 'gatos-magia-neurociencia' && <ArticuloGatos />}
         {paper.slug === 'tdah-y-telepatia-medicacion' && <ArticuloTDAH />}
         {paper.slug === 'neurociencia-de-la-trascendencia' && <ArticuloTrascendencia />}
         {paper.slug === 'grinberg-teoria-sinteargica' && <ArticuloGrinberg />}

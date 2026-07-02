@@ -71,7 +71,7 @@ export const investigations: Investigation[] = [
     slug: 'gatos-magia-neurociencia',
     date: '12.04.2026',
     type: 'INVESTIGACIÓN PROFUNDA',
-    access: 'partial',
+    access: 'public',
     title: 'Gatos, Magia y Neurociencia',
     shortDesc: 'Un Análisis Histórico, Filosófico y Científico de la Simbiosis Felino-Iniciática.',
     heroImage: '/gatonegro.webp',
