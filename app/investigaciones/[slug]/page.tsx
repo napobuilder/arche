@@ -937,7 +937,7 @@ function ArticuloTDAH() {
 
       <div className="breakout-full h-[45vh] md:h-[60vh] my-20 overflow-hidden group relative">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://images.unsplash.com/photo-1518241353330-0f797f835606?auto=format&fit=crop&q=80&w=2070" alt="Sintonización y Meditación Analógica"
+        <img src="/tdah-meditacion.jpg" alt="Sintonización y Meditación Analógica"
           className="w-full h-full object-cover object-center grayscale opacity-40 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60" />
         <div className="absolute bottom-6 left-8 pointer-events-none z-10">
