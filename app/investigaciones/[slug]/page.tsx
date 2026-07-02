@@ -898,7 +898,18 @@ function ArticuloTDAH() {
 
       <p>¿Qué tienen en común todas estas neurodivergencias frente a los fenómenos anómalos? La respuesta radica en un mecanismo llamado Sensory Gating (el filtrado sensorial). El cerebro neurotípico posee barreras evolutivas robustas que bloquean el 99% de la información del entorno para mantener al individuo enfocado en la supervivencia básica y la identidad (el &ldquo;filtro&rdquo; del ego).</p>
 
-      <p>En la neurodivergencia, y específicamente en el TDAH, esta barrera es altamente porosa. Al no poder filtrar los estímulos, el cerebro queda &ldquo;abierto&rdquo; y vulnerable, pero también inmensamente receptivo. Esta porosidad neurobiológica es lo que sostiene las observaciones de expertas como la psiquiatra Diane Hennacy Powell, quien sugiere que la telepatía es una capacidad humana primordial &ldquo;enterrada&rdquo; bajo el desarrollo del lenguaje. En autistas no verbales o perfiles fuertemente neurodivergentes, el cerebro compensa manteniendo acceso al campo de conciencia compartido. A su vez, estudios de IONS indican que traumas inducen una &ldquo;alter-asociación&rdquo; disociativa (clarividencia post-traumática) como mecanismo hipervigilante hiperadaptativo.</p>
+      <div className="my-12 clear-both overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=1200"
+          alt="Porosidad del Filtrado Sensorial"
+          className="float-none md:float-right w-full md:w-80 h-auto ml-0 md:ml-8 mb-6 md:mb-4 grayscale opacity-60 border border-white/10 rounded-sm hover:grayscale-0 hover:opacity-100 transition-all duration-700 object-cover"
+        />
+        <div className="space-y-4">
+          <p>En la neurodivergencia, y específicamente en el TDAH, esta barrera es altamente porosa. Al no poder filtrar los estímulos, el cerebro queda &ldquo;abierto&rdquo; y vulnerable, pero también inmensamente receptivo. Esta porosidad neurobiológica es lo que sostiene las observaciones de expertas como la psiquiatra Diane Hennacy Powell, quien sugiere que la telepatía es una capacidad humana primordial &ldquo;enterrada&rdquo; bajo el desarrollo del lenguaje.</p>
+          <p>En autistas no verbales o perfiles fuertemente neurodivergentes, el cerebro compensa manteniendo acceso al campo de conciencia compartido. A su vez, estudios de IONS indican que traumas inducen una &ldquo;alter-asociación&rdquo; disociativa (clarividencia post-traumática) como mecanismo hipervigilante hiperadaptativo.</p>
+        </div>
+      </div>
 
       <h3>5. El Dilema Clínico: ¿Trastorno o Superpoder? El Rol de la Medicación</h3>
       <p>Todo esto nos lleva a la pregunta ineludible: Si el TDAH nos otorga esta sensibilidad o &ldquo;antena&rdquo; expandida, ¿es un superpoder o un trastorno? ¿Realmente necesitamos medicarlo? La realidad clínica —y la experiencia observacional de quienes navegamos la neurodivergencia— es que una antena que capta absolutamente todas las estaciones de radio al mismo tiempo no es un don; es un tormento que genera ansiedad profunda.</p>
@@ -923,6 +934,17 @@ function ArticuloTDAH() {
 
       <h3>6. La Vía Analógica: La Meditación como Tecnología de Sintonización</h3>
       <p>Si la medicación ofrece un andamiaje neuroquímico externo, una práctica seria y sostenida de meditación (como el mindfulness o la meditación contemplativa) representa la tecnología &ldquo;analógica&rdquo; definitiva para el cerebro neurodivergente. No se trata de sentarse a relajar la mente, sino de un entrenamiento físico de la arquitectura cerebral.</p>
+
+      <div className="breakout-full h-[45vh] md:h-[60vh] my-20 overflow-hidden group relative">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://images.unsplash.com/photo-1518241353330-0f797f835606?auto=format&fit=crop&q=80&w=2070" alt="Sintonización y Meditación Analógica"
+          className="w-full h-full object-cover object-center grayscale opacity-40 transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60" />
+        <div className="absolute bottom-6 left-8 pointer-events-none z-10">
+          <p className="font-mono text-[10px] tracking-widest text-white/50 uppercase">Tecnología Analógica de Sintonización</p>
+          <p className="font-serif text-sm text-white/40 italic">El control endógeno sobre la corteza prefrontal y la compuerta sensorial</p>
+        </div>
+      </div>
 
       <h4>Neuroplasticidad y el Control del &ldquo;Dial&rdquo;</h4>
       <p>La ciencia es clara respecto a los efectos de la meditación constante en el cerebro: engrosa la corteza prefrontal (nuestra vmPFC, el centro de las corazonadas controladas) y entrena la capacidad de &ldquo;apagar&rdquo; voluntariamente la Red Neuronal por Defecto (DMN).</p>
